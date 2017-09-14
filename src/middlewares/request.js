@@ -1,40 +1,40 @@
 let getParams = ctx =>{
-  // console.log(`ctx.type:${ctx.type}, ctx.method:${ctx.method}`)
   let data = {};
   let query = ctx.query;
+  console.log(query, '999')
   if(query && Object.keys(query).length>0){
     data['limit'] = (query.per_page ? query.per_page : 1)*1;
     let current_page = (query.current_page ? query.current_page : 1) - 1;//offset start 0(如果不存在则只返回一条)
     let offset = (query.current_page < 1 ? 0 : current_page)*data['limit'];
     data['offset'] = offset*1;
-    /*columnFilter*/
-    if(query['columnFilter'] && query['columnFilter'].length>0){
+    /*colFilter*/
+    if(query['colFilter'] && query['colFilter'].length>0){
       data['where'] = {};
-      for(let columnFilter of query['columnFilter']){
-        if(columnFilter.column === '_orFilter_'){
-          data['where']['$or'] = columnFilter.value;
+      for(let colFilter of query['colFilter']){
+        if(colFilter.col === '_orFilter_'){
+          data['where']['$or'] = colFilter.val;
         }else{
-          switch(columnFilter.exp){
+          switch(colFilter.exp){
             case 'like':
-              data['where'][columnFilter.column] = { $like: `%${columnFilter.value}%` };break;
+              data['where'][colFilter.col] = { $like: `%${colFilter.val}%` };break;
             case '>':
-              data['where'][columnFilter.column] = { $gt: columnFilter.value };break;
+              data['where'][colFilter.col] = { $gt: colFilter.val };break;
             case '>=':
-              data['where'][columnFilter.column] = { $gte: columnFilter.value };break;
+              data['where'][colFilter.col] = { $gte: colFilter.val };break;
             case '<':
-              data['where'][columnFilter.column] = { $lt: columnFilter.value };break;
+              data['where'][colFilter.col] = { $lt: colFilter.val };break;
             case '<=':
-              data['where'][columnFilter.column] = { $lte: columnFilter.value };break;
+              data['where'][colFilter.col] = { $lte: colFilter.val };break;
             case 'in':
-              data['where'][columnFilter.column] = { $in: columnFilter.value };break;
+              data['where'][colFilter.col] = { $in: colFilter.val };break;
             case '!=':
-              data['where'][columnFilter.column] = { $ne: columnFilter.value };break;
+              data['where'][colFilter.col] = { $ne: colFilter.val };break;
             case '$or':
-              data['where'][columnFilter.column] = { $or: columnFilter.value };break;
+              data['where'][colFilter.col] = { $or: colFilter.val };break;
             case '=':
-              data['where'][columnFilter.column] = columnFilter.value;break;
+              data['where'][colFilter.col] = colFilter.val;break;
             default:
-              data['where'][columnFilter.column] = columnFilter.value;break;
+              data['where'][colFilter.col] = colFilter.val;break;
           }
         }
       }
@@ -43,12 +43,11 @@ let getParams = ctx =>{
     if(query['orderBy'] && query['orderBy'].length>0){
       data['order'] = [];
       let orders = query['orderBy'].map(o=>{
-        return [o.column, o.dir]
+        return [o.col, o.dir]
       });
       data['order'] = orders
     }
   }
-  // console.log('getParams-----------',data)
   return data;
 }
 

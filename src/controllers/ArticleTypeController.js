@@ -1,0 +1,78 @@
+/*qinfeng*/
+
+import TOOLS from '../utils/tools';
+import ArticleTypeService from '../services/ArticleTypeService';
+
+//get params(router 匹配)：ctx.params
+//get url自带参数 ctx.query
+//post请求使用 ctx.request.fields
+// ctx.request.body,
+
+const { DELAY, DateTimeF, Guid, Guid8 } = TOOLS;
+
+class ArticleController {
+
+    // GET
+    static async getById (ctx) {
+        let id = ctx.params.id;
+        let article = await ArticleTypeService.getById(id);
+        ctx.Json({data: article});
+    }
+
+    // GET
+    static async pages (ctx) {
+        if(!ctx.getParams.order || ctx.getParams.order.length == 0){
+          ctx.getParams.order = [['created_at', 'desc']];
+        }
+        const params = {
+            ...ctx.getParams,
+            ...{
+                attributes:['id', 'type_name', 'mark', 'created_at'],
+                // order: [['created_at', 'desc']]
+            }
+        }
+        let pages = await ArticleTypeService.pages(params);
+        pages.rows.map(m=>{
+          m.dataValues.created_at = DateTimeF(m.created_at);
+          return m;
+        })
+        ctx.Pages({page: pages});
+    }
+
+    // POST
+    static async insert (ctx) {
+        await DELAY(3000);
+        ctx.Json({data: 300, msg: '添加成功！'});
+    }
+
+    // PUT
+    static async update (ctx) {
+        await DELAY(3000)
+        console.log('ctx.request', ctx.request.fields)
+        const id = ctx.params.id;
+        const inputs = ctx.request.fields;
+        if(id){
+            // const result = await ArticleTypeService.update(model);
+            ctx.Json({data: 'result'});
+        }else{
+            ctx.throw(400)
+        }
+            
+    }
+
+    // DELETE
+    static async delete(ctx){
+        // console.log(ctx.params)
+        const id = ctx.params.id;
+        // id = 0;
+        if(id){
+            const result = await ArticleTypeService.delete(id);
+            ctx.Json({data:result, msg: '删除成功!'});
+        }else{
+            ctx.throw(400);
+        }
+    }
+
+}
+
+export default ArticleController;

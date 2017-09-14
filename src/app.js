@@ -2,7 +2,7 @@
 import Http from 'http'
 //koa
 import Koa from 'koa'
-// import Qs from 'koa-qs'
+import Qs from 'koa-qs'
 import Favicon from 'koa-favicon'
 import Body from 'koa-better-body'
 import Logger from 'koa-logger'
@@ -14,7 +14,7 @@ import Logger from 'koa-logger'
 import Middlewares from './middlewares'
 
 const App = new Koa();
-// Qs(App, 'extended')
+Qs(App, 'extended')
 App.use( Favicon(process.cwd() + '/src/public/favicon.ico') )
 // App.use( Views(process.cwd() + '/public/views', { map: { html: 'ejs' } }) )//测试页面
 
