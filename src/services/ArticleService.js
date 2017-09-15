@@ -19,10 +19,10 @@ class ArticleService {
 		return result;
 	}
 
-	// static async update (model) {
-	// 	const result = await Article.update(model);
-	// 	return result;
-	// }
+	static async update (inputs) {
+        const result = await ArticleDao.update(inputs);
+        return result;
+    }
 
 	// //更新状态删除
 	// static async delete (id) {

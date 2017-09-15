@@ -19,7 +19,7 @@ router
 	.get('/testmock', Test.testmock)
 	.get('/page', Test.pages)
 	.delete('/delete', Test.delete)
-	.get('/testproxy', Test.proxy)
-	.get('/attack', Test.attack);
+	// .get('/testproxy', Test.proxy)
+	// .get('/attack', Test.attack);
 
 export default router

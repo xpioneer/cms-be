@@ -64,25 +64,6 @@ class ArticleController {
 		}
 	}
 
-	//GET
-	static async proxy(ctx){
-		const json = await http.get('/api/test/page');
-		ctx.Json(json);
-	}
-
-
-
-	static async testSession(ctx) {
-		// const json = await http.get('/v1/kaptcha/getKaptchaImage');
-		const json = await http.post('/v1/userLogin/loginChecked', {
-			username: 'qinfeng',
-			password: '123456',
-			captchaCode: '88888'
-		});
-		console.log('json', json)
-		ctx.body = json;
-	}
-
 }
 
 export default ArticleController;
