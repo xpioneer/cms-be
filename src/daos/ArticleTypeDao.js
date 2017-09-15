@@ -24,7 +24,7 @@ class ArticleTypeDao {
     }
 
     static async insert (model) {
-        const result = await ArticleType.insert(model);
+        const result = await ArticleType.create(model);
         return result;
     }
 
@@ -43,6 +43,17 @@ class ArticleTypeDao {
         return result;
     }
 
+    static async delete (id) {
+        const result = await ArticleType.update({
+            updated_at: Date.now(),
+            updated_by: 'now'
+        }, {
+            where: {
+                id: id
+            }
+        });
+        return result;
+    }
 }
 
 export default ArticleTypeDao;

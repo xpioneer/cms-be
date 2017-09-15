@@ -40,8 +40,13 @@ class ArticleController {
 
     // POST
     static async insert (ctx) {
-        await DELAY(3000);
-        ctx.Json({data: 300, msg: '添加成功！'});
+        const inputs = ctx.request.fields;
+        let model = {
+            type_name: inputs.type_name,
+            remark: inputs.remark
+        }
+        const result = await ArticleTypeService.insert(model);
+        ctx.Json({data: result, msg: '添加成功！'});
     }
 
     // PUT

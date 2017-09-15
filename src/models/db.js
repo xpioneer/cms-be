@@ -40,15 +40,15 @@ function defineModel(name, attributes) {
     }
     attrs.created_by = {
       type: Sequelize.STRING(32),
-      allowNull: false
+      allowNull: true
     };
     attrs.created_at = {
         type: Sequelize.BIGINT,
         allowNull: false
     };
-    attrs.created_by = {
+    attrs.updated_by = {
       type: Sequelize.STRING(32),
-      allowNull: false
+      allowNull: true
     };
     attrs.updated_at = {
         type: Sequelize.BIGINT,
