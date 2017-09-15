@@ -16,7 +16,12 @@ class ArticleController {
     static async getById (ctx) {
         let id = ctx.params.id;
         let article = await ArticleTypeService.getById(id);
-        ctx.Json({data: article});
+        const model = {
+            id: article.id,
+            type_name: article.type_name,
+            remark: article.remark
+        }
+        ctx.Json({data: model});
     }
 
     // GET
@@ -24,17 +29,11 @@ class ArticleController {
         if(!ctx.getParams.order || ctx.getParams.order.length == 0){
           ctx.getParams.order = [['created_at', 'desc']];
         }
-        const params = {
-            ...ctx.getParams,
-            ...{
-                attributes:['id', 'type_name', 'mark', 'created_at'],
-                // order: [['created_at', 'desc']]
-            }
-        }
-        let pages = await ArticleTypeService.pages(params);
+        let conditions = ctx.getParams;
+        let pages = await ArticleTypeService.pages(conditions);
         pages.rows.map(m=>{
-          m.dataValues.created_at = DateTimeF(m.created_at);
-          return m;
+            m.dataValues.created_at = DateTimeF(m.created_at);
+            return m;
         })
         ctx.Pages({page: pages});
     }
@@ -47,13 +46,11 @@ class ArticleController {
 
     // PUT
     static async update (ctx) {
-        await DELAY(3000)
-        console.log('ctx.request', ctx.request.fields)
         const id = ctx.params.id;
-        const inputs = ctx.request.fields;
         if(id){
-            // const result = await ArticleTypeService.update(model);
-            ctx.Json({data: 'result'});
+            const inputs = ctx.request.fields;
+            const result = await ArticleTypeService.update(id, inputs);
+            ctx.Json({data: result[0]});
         }else{
             ctx.throw(400)
         }

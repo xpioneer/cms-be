@@ -43,7 +43,7 @@ function defineModel(name, attributes) {
       allowNull: false
     };
     attrs.created_at = {
-        type: Sequelize.DATE,
+        type: Sequelize.BIGINT,
         allowNull: false
     };
     attrs.created_by = {
@@ -51,7 +51,7 @@ function defineModel(name, attributes) {
       allowNull: false
     };
     attrs.updated_at = {
-        type: Sequelize.DATE,
+        type: Sequelize.BIGINT,
         allowNull: false
     };
     attrs.deleted_by = {
@@ -59,7 +59,7 @@ function defineModel(name, attributes) {
         allowNull: true
     };
     attrs.deleted_at = {
-        type: Sequelize.DATE,
+        type: Sequelize.BIGINT,
         allowNull: true
     };
     attrs.version = {
@@ -72,7 +72,7 @@ function defineModel(name, attributes) {
         tableName: name,
         timestamps: false,
         hooks: {
-            beforeValidate: function (obj) {
+            beforeValidate: (obj) => {
                 let now = Date.now();
                 if (obj.isNewRecord) {
                     if (!obj.id) {
@@ -85,6 +85,11 @@ function defineModel(name, attributes) {
                     obj.updated_at = now;
                     obj.version++;
                 }
+            },
+            beforeUpdate: (model) => {
+                console.log(model, 'model')
+                obj.updated_at = now;
+                obj.version++;
             }
         }
     });

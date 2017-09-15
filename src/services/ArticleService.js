@@ -1,23 +1,21 @@
 /*qinfeng*/
 
-import DB from '../models'
-
-const Article = DB.Article;
+import ArticleDao from '../daos/ArticleDao'
 
 class ArticleService {
 
 	static async getById (id) {
-		const article = await Article.findById(id);
+		const article = await ArticleDao.getById(id);
 		return article;
 	}
 
-	static async pages (params) {
-		const pages = await Article.findAndCountAll(params);
+	static async pages (conditions) {
+		const pages = await ArticleDao.pages(conditions);
 		return pages;
 	}
 
 	static async insert (model) {
-		const result = await Article.insert(model);
+		const result = await ArticleDao.insert(model);
 		return result;
 	}
 

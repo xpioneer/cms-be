@@ -21,21 +21,11 @@ class ArticleController {
 
 	//GET
 	static async pages (ctx) {
-		console.log('get ArticlePages', ctx.getParams)
-	    if(!ctx.getParams.order || ctx.getParams.order.length == 0){
-	      ctx.getParams.order = [['created_at', 'desc']];
-	    }
-	    const params = {
-			...ctx.getParams,
-			...{
-				attributes:['id', 'title', 'abstract', 'pics', 'praise', 'contempt', 'view_count', 'is_original', 'created_at'],
-				// order: [['created_at', 'desc']]
-			}
-	    }
-	    let pages = await ArticleService.pages(params);
+	    let conditions = ctx.getParams;
+	    let pages = await ArticleService.pages(conditions);
 	    pages.rows.map(m=>{
-	      m.dataValues.created_at = DateTimeF(m.created_at);
-	      return m;
+			m.dataValues.created_at = DateTimeF(m.created_at);
+			return m;
 	    })
 		ctx.Pages({page: pages});
 	}

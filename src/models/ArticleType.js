@@ -6,7 +6,7 @@ const ArticleType = DB.defineModel('articletype', {
       type: Sequelize.STRING(50),
       allowNull: false,
     },
-    mark: {
+    remark: {
       type: Sequelize.STRING(200),
       allowNull: true,
     }

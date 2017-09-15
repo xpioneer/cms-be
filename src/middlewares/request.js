@@ -1,7 +1,6 @@
 let getParams = ctx =>{
   let data = {};
   let query = ctx.query;
-  console.log(query, '999')
   if(query && Object.keys(query).length>0){
     data['limit'] = (query.per_page ? query.per_page : 1)*1;
     let current_page = (query.current_page ? query.current_page : 1) - 1;//offset start 0(如果不存在则只返回一条)
