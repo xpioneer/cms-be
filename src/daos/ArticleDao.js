@@ -27,15 +27,21 @@ class ArticleDao {
     }
 
     static async insert (model) {
-        const result = await Article.insert(model);
+        const result = await Article.create(model);
         return result;
     }
 
     static async update (inputs) {
         
         const result = await Article.update({
-            type_name: inputs.type_name,
-            remark: inputs.remark,
+            title: inputs.title,
+            abstract: inputs.abstract,
+            type_id: inputs.type_id,
+            is_top: inputs.is_top,
+            pics: inputs.pics,
+            content: inputs.content,
+            is_original: inputs.is_original,
+            tag: inputs.tag,
             updated_at: Date.now()
         }, {
             where: {

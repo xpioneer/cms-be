@@ -32,19 +32,39 @@ class ArticleController {
 
 	//POST
 	static async insert (ctx) {
-		await DELAY(3000);
+		const inputs = ctx.request.fields;
+        let model = {
+        	title: inputs.title,
+        	abstract: inputs.abstract,
+        	is_original: inputs.is_original,
+        	type_id: inputs.type_id,
+        	is_top: inputs.is_top,
+            content: inputs.content,
+            created_at: inputs.created_at
+        }
+        const result = await ArticleService.insert(model);
 		ctx.Json({data: 300, msg: '添加成功！'});
 	}
 
 	//PUT
 	static async update (ctx) {
-		await DELAY(3000)
 		console.log('ctx.request', ctx.request.fields)
 		const id = ctx.params.id;
 		const inputs = ctx.request.fields;
 		if(id){
-			// const result = await ArticleService.update(model);
-			ctx.Json({data: 'result'});
+			const model = {
+				id: inputs.id,
+				title: inputs.title,
+				abstract: inputs.abstract,
+				type_id: inputs.type_id,
+				is_top: inputs.is_top,
+				pics: inputs.pics,
+				content: inputs.content,
+				is_original: inputs.is_original,
+				tag: inputs.tag
+			};
+			const result = await ArticleService.update(model);
+			ctx.Json({data: result});
 		}else{
 			ctx.throw(400)
 		}
@@ -53,9 +73,7 @@ class ArticleController {
 
 	//DELETE
 	static async delete(ctx){
-		// console.log(ctx.params)
 		const id = ctx.params.id;
-		// id = 0;
 		if(id){
 			const result = await ArticleService.delete(id);
 			ctx.Json({data:result, msg: '删除成功!'});

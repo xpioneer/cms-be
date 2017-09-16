@@ -47,13 +47,18 @@ const Article = DB.defineModel('article', {
     },
     user_id: {
       type: Sequelize.STRING(32),
-      allowNull: false,
+      allowNull: true,
       comment: "审核状态描述"
     },
     is_original: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
+    },
+    tag: {
+      type: Sequelize.STRING(100),
+      allowNull: false,
+      comment: "标签"
     }
   },
 );
