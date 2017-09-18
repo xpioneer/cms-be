@@ -26,8 +26,18 @@ class TagService {
 
     //更新状态删除
     static async delete (id) {
-     const result = await UserDao.delete(id);
-     return result;
+        const result = await UserDao.delete(id);
+        return result;
+    }
+
+    static async login (username, password) {
+        const result = await UserDao.login(username, password);
+        return result;
+    }
+
+    static async getByName (username) {
+        const user = await UserDao.getByName(username);
+        return user;
     }
 
 }

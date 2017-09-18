@@ -1,7 +1,10 @@
 /*qinfeng*/
-
+import Crypto from 'crypto';
 import DB from '../models'
 
+import TOOLS from '../utils/tools'
+
+const { DateTimeF } = TOOLS;
 const User = DB.User;
 
 class UserDao {
@@ -54,6 +57,27 @@ class UserDao {
             }
         });
         return result;
+    }
+
+    static async login(username, password){
+        const count = await User.count({
+            where: {
+                username: username,
+                password: password
+            }
+        });
+        return count;
+    }
+
+    static async getByName (username) {
+        let user = await User.findOne({
+            attributes:['id', 'username', 'user_type', 'sex', 'nick_name', 'user_resource', 'created_at'],
+            where: {
+                username: username
+            }
+        });
+        user.dataValues.created_at = DateTimeF(user.created_at);
+        return user;
     }
 
 }
