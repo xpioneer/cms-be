@@ -7,7 +7,7 @@ import Favicon from 'koa-favicon'
 import Body from 'koa-better-body'
 import Logger from 'koa-logger'
 // import Views from 'koa-views'
-// import Session from "koa-session2"
+import Session from "koa-session2"
 // import Store from "./utils/session"
 
 //customer
@@ -24,11 +24,11 @@ if(process.env.NODE_ENV == 'development'){
   App.use(Logger())
 }
 
-// App.use(Session({
-//   key: 'R_SESSION_ID',
-//   store: new Store(),
-//   maxAge: 1000 * 6,
-// }));
+App.use(Session({
+  key: 'KOA_SESSION_ID',
+  // store: new Store(),
+  maxAge: 1000 * 60 * 60,
+}));
 
 Middlewares(App)//注入自定义中间件
 

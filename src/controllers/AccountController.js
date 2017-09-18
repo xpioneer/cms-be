@@ -20,7 +20,9 @@ class AccountController {
             const result = await UserService.login(username, cryptoPwd(password, username));
             if(result > 0){
                 const user = await UserService.getByName(username);
-                ctx.Json({data: user, msg: '成功！'});
+                ctx.session['CUR_USER'] = user;
+                ctx.session['AUTH_TOKEN'] = cryptoPwd(username, 'TOKEN');
+                ctx.Json({data: user, msg: ctx.session['AUTH_TOKEN']});
             }else{
                 ctx.Json({data: result, status: 400, msg: '用户名或密码错误！'});
             }
