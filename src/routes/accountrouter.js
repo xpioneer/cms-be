@@ -6,6 +6,7 @@ const router = new Router({
 });
 
 router
-    .post('/login', Accountrtl.login);
+    .post('/login', Accountrtl.login)
+    .post('/logout', Accountrtl.logout);
 
 export default router

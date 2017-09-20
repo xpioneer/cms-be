@@ -7,8 +7,9 @@ import Favicon from 'koa-favicon'
 import Body from 'koa-better-body'
 import Logger from 'koa-logger'
 // import Views from 'koa-views'
-import Session from "koa-session2"
-// import Store from "./utils/session"
+// import Session from "koa-session2"
+import Session from "./utils/session"
+import Store from "./utils/session/store"
 
 //customer
 import Middlewares from './middlewares'
@@ -25,8 +26,8 @@ if(process.env.NODE_ENV == 'development'){
 }
 
 App.use(Session({
-  key: 'KOA_SESSION_ID',
-  // store: new Store(),
+  key: 'SESSION_ID',
+  store: new Store(),
   maxAge: 1000 * 60 * 60,
 }));
 

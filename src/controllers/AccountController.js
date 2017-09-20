@@ -31,6 +31,13 @@ class AccountController {
         }
     }
 
+    //POST
+    static async logout (ctx) {
+        ctx.session['CUR_USER'] = undefined;
+        ctx.session['AUTH_TOKEN'] = undefined;
+        ctx.Json({data: 1, msg: '退出成功！'});
+    }
+
 }
 
 export default AccountController;

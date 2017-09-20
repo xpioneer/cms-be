@@ -10,26 +10,16 @@ export default async(ctx, next) => {
         await next();
     } else {
         if(cur_user && ctx.url.indexOf('/api/') == 0){
-            if(!PROD && ctx.query['nologin'] == 99){
+            let key = ctx.header['Authorization-User'] || ctx.header['authorization-user'] || ctx.query['Authorization-User'];
+            if(!key || (key && key.length !== 64)){
+                ctx.throw(401);
+            }
+            if(auth_token === key){
                 await next();
-                ctx.session['CSRF_TOKEN'] = 'qwe123';
-            }else{
-                let key = ctx.header['Authorization-User'] || ctx.header['authorization-user'] || ctx.query['Authorization-User'];
-                if(key && key.length !== 64){
-                    ctx.session['CSRF_TOKEN'] = undefined;
-                    ctx.throw(401);
-                }
-                if(auth_token === key){
-                    ctx.session['CUR_USER'] = cur_user;
-                    await next();
-                    ctx.session['CSRF_TOKEN'] = 'qwe123';
-                } else {
-                    ctx.session['CSRF_TOKEN'] = undefined;
-                    ctx.throw(401);
-                }
+            } else {
+                ctx.throw(401);
             }
         }else {
-            ctx.session['CSRF_TOKEN'] = undefined;
             ctx.throw(401);
         }
     }
