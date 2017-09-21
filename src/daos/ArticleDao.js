@@ -6,19 +6,21 @@ const Article = DB.Article;
 
 class ArticleDao {
 
-    static async getById (id) {
+    static async getById(id) {
         const model = await Article.findById(id);
         return model;
     }
 
-    static async pages (conditions) {
-        if(!conditions.order || conditions.order.length == 0){
-            conditions.order = [['created_at', 'desc']];
+    static async pages(conditions) {
+        if (!conditions.order || conditions.order.length == 0) {
+            conditions.order = [
+                ['created_at', 'desc']
+            ];
         }
         const params = {
             ...conditions,
-            ...{
-                attributes:['id', 'title', 'abstract', 'pics', 'praise', 'contempt', 'view_count', 'is_original', 'created_at'],
+            ... {
+                attributes: ['id', 'title', 'abstract', 'pics', 'praise', 'contempt', 'view_count', 'is_original', 'created_at'],
                 // order: [['created_at', 'desc']]
             }
         }
@@ -26,13 +28,13 @@ class ArticleDao {
         return pages;
     }
 
-    static async insert (model) {
+    static async insert(model) {
         const result = await Article.create(model);
         return result;
     }
 
-    static async update (inputs) {
-        
+    static async update(inputs) {
+
         const result = await Article.update({
             title: inputs.title,
             abstract: inputs.abstract,

@@ -16,13 +16,13 @@ import Middlewares from './middlewares'
 
 const App = new Koa();
 Qs(App, 'extended')
-App.use( Favicon(process.cwd() + '/src/public/favicon.ico') )
-// App.use( Views(process.cwd() + '/public/views', { map: { html: 'ejs' } }) )//测试页面
+App.use(Favicon(process.cwd() + '/src/public/favicon.ico'))
+    // App.use( Views(process.cwd() + '/public/views', { map: { html: 'ejs' } }) )//测试页面
 
 App.use(Body())
 
-if(process.env.NODE_ENV == 'development'){
-  App.use(Logger())
+if (process.env.NODE_ENV == 'development') {
+    App.use(Logger())
 }
 
 // App.use(Session({
@@ -33,27 +33,27 @@ if(process.env.NODE_ENV == 'development'){
 // }));
 
 App.use(Session({
-  key: 'SESSION_ID',
-  store: new Store(),
-  maxAge: 1000 * 60 * 60,
+    key: 'SESSION_ID',
+    store: new Store(),
+    maxAge: 1000 * 60 * 60,
 }));
 
-Middlewares(App)//注入自定义中间件
+Middlewares(App) //注入自定义中间件
 
 App.use(async(ctx, next) => {
-  await next()
-  ctx.set('X-Powered-By', 'Keefe')
+    await next()
+    ctx.set('X-Powered-By', 'Keefe')
 })
 
 
 
 App.on('error', (err, ctx) =>
-  console.error('server error', err, ctx)
+    console.error('server error', err, ctx)
 );
 
 let port = 9901;
-if(process.env.NODE_ENV === "production"){
-  port = 991;
+if (process.env.NODE_ENV === "production") {
+    port = 991;
 }
 
 Http.createServer(App.callback()).listen(port);

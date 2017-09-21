@@ -9,19 +9,19 @@ class Store {
         this.__timer = new Map();
         this.session = {};
     }
- 
+
     getID(length) {
         return randomBytes(length).toString('hex');
     }
- 
+
     get(sid) {
-        if(!this.sessions.has(sid)){
+        if (!this.sessions.has(sid)) {
             return undefined;
         }
         return JSON.parse(this.sessions.get(sid));
     }
 
-    set(session, { sid =  this.getID(32), maxAge } = {}) {
+    set(session, { sid = this.getID(32), maxAge } = {}) {
         if (this.sessions.has(sid) && this.__timer.has(sid)) {
             const __timeout = this.__timer.get(sid);
             if (__timeout) clearTimeout(__timeout);
@@ -38,7 +38,7 @@ class Store {
 
         return sid;
     }
- 
+
     destroy(sid) {
         delete this.session[sid];
         return Promise.resolve();
@@ -46,4 +46,3 @@ class Store {
 }
 
 export default Store;
-

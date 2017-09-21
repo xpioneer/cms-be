@@ -6,16 +6,16 @@ const ArticleType = DB.ArticleType;
 
 class ArticleTypeDao {
 
-    static async getById (id) {
+    static async getById(id) {
         const model = await ArticleType.findById(id);
         return model;
     }
 
-    static async pages (conditions) {
+    static async pages(conditions) {
         const params = {
             ...conditions,
-            ...{
-                attributes:['id', 'type_name', 'remark', 'created_at'],
+            ... {
+                attributes: ['id', 'type_name', 'remark', 'created_at'],
                 // order: [['created_at', 'desc']]
             }
         }
@@ -23,12 +23,12 @@ class ArticleTypeDao {
         return pages;
     }
 
-    static async insert (model) {
+    static async insert(model) {
         const result = await ArticleType.create(model);
         return result;
     }
 
-    static async update (id, inputs) {
+    static async update(id, inputs) {
         let now = Date.now();
         console.log(now, 'Date.now()')
         const result = await ArticleType.update({
@@ -43,7 +43,7 @@ class ArticleTypeDao {
         return result;
     }
 
-    static async delete (id) {
+    static async delete(id) {
         const result = await ArticleType.update({
             updated_at: Date.now(),
             updated_by: 'now'

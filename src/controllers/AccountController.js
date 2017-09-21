@@ -12,19 +12,19 @@ const cryptoPwd = (pwd, key) => {
 class AccountController {
 
     //POST
-    static async login (ctx) {
+    static async login(ctx) {
         const inputs = ctx.request.fields;
         let username = inputs.username;
         let password = inputs.password;
-        if((username && username.length > 0) && (password && password.length > 0)){
+        if ((username && username.length > 0) && (password && password.length > 0)) {
             const result = await UserService.login(username, cryptoPwd(password, username));
-            if(result > 0){
+            if (result > 0) {
                 const user = await UserService.getByName(username);
                 ctx.session['CUR_USER'] = user;
-                ctx.session['AUTH_TOKEN'] = cryptoPwd(username, 'TOKEN');
-                ctx.Json({data: user, msg: ctx.session['AUTH_TOKEN']});
-            }else{
-                ctx.Json({data: result, status: 400, msg: '用户名或密码错误！'});
+                ctx.session['AUTH_TOKEN'] = Crypto.randomBytes(32).toString('hex');
+                ctx.Json({ data: user, msg: ctx.session['AUTH_TOKEN'] });
+            } else {
+                ctx.Json({ data: result, status: 400, msg: '用户名或密码错误！' });
             }
         } else {
             ctx.throw(400, '请输入用户名或密码！');
@@ -32,10 +32,10 @@ class AccountController {
     }
 
     //POST
-    static async logout (ctx) {
-        ctx.session['CUR_USER'] = undefined;
-        ctx.session['AUTH_TOKEN'] = undefined;
-        ctx.Json({data: 1, msg: '退出成功！'});
+    static async logout(ctx) {
+        delete ctx.session['CUR_USER'];
+        delete ctx.session['AUTH_TOKEN'];
+        ctx.Json({ data: 1, msg: '退出成功！' });
     }
 
 }

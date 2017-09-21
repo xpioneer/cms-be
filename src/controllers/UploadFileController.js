@@ -8,11 +8,11 @@ const { DateF, Guid } = TOOLS;
 
 const filePath = './' + 'uploads/' + DateF(Date.now()).replace(/-/g, '');
 
-function uploading(file){
-    return new Promise((resolve, reject)=>{
+function uploading(file) {
+    return new Promise((resolve, reject) => {
         let path = file.path;
-        try{
-            Fs.readFile(path, function(err, data){
+        try {
+            Fs.readFile(path, function(err, data) {
                 let name = file.name;
                 let type = file.type.split('/').reverse()[0];
                 let newName = Guid() + '.' + type;
@@ -22,31 +22,31 @@ function uploading(file){
                 if (!exists) {
                     Fs.mkdir(filePath, err => {
                         console.log(err)
-                        if(err){
+                        if (err) {
                             reject(err);
                         } else {
                             Fs.writeFile(newPath, data, e => {
-                                if(e){
+                                if (e) {
                                     reject(e);
-                                }else{
-                                    resolve({path: newPath, name: name, new_name: newName});
+                                } else {
+                                    resolve({ path: newPath, name: name, new_name: newName });
                                 }
                             });
                         }
                     });
-                }else {
+                } else {
                     Fs.writeFile(newPath, data, err => {
-                        if(err){
+                        if (err) {
                             reject(err);
-                        }else{
-                            resolve({path: newPath, name: name, new_name: newName});
+                        } else {
+                            resolve({ path: newPath, name: name, new_name: newName });
                         }
                     });
                 }
             });
-        }catch(e){
+        } catch (e) {
             reject(e);
-        }finally{
+        } finally {
             Fs.unlinkSync(path);
         }
     });
@@ -54,18 +54,17 @@ function uploading(file){
 
 class TestController {
 
-    static async upload (ctx) {
+    static async upload(ctx) {
         let files = ctx.request.fields['file'],
             file = files && files[0];
-        if(file){
+        if (file) {
             let result = await uploading(file);
-            ctx.Json({data: result});
-        }else{
-            ctx.Json({data: '请上传文件！'});
+            ctx.Json({ data: result });
+        } else {
+            ctx.Json({ data: '请上传文件！' });
         }
     }
 
 }
 
 export default TestController;
-
