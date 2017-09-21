@@ -1,49 +1,42 @@
+import { randomBytes } from 'crypto';
 import TOOLS from '../tools';
 
 const { Guid } = TOOLS;
 
 class Store {
     constructor() {
+        this.sessions = new Map();
+        this.__timer = new Map();
         this.session = {};
     }
  
-    decode(string) {
-        if(!string) return "";
- 
-        let session = "";
- 
-        try{
-            //存在session
-            session = new Buffer(string, "base64").toString();
-        } catch(e) {}
-        
-        return JSON.parse(session);
-    }
- 
-    encode(obj) {
-        //滚成buffer
-        return new Buffer(obj).toString("base64");
-    }
- 
-    getID() {
-        return Guid() + Guid();
+    getID(length) {
+        return randomBytes(length).toString('hex');
     }
  
     get(sid) {
-        return Promise.resolve(this.decode(this.session[sid]));
-    }
- 
-    set(session, opts) {
-        opts = opts || {};
-        let sid = opts.sid;
-        if(!sid) {
-            //Uid
-            sid = this.getID(24);
+        if(!this.sessions.has(sid)){
+            return undefined;
         }
- 
-        this.session[sid] = this.encode(JSON.stringify(session));
- 
-        return Promise.resolve(sid);
+        return JSON.parse(this.sessions.get(sid));
+    }
+
+    set(session, { sid =  this.getID(32), maxAge } = {}) {
+        if (this.sessions.has(sid) && this.__timer.has(sid)) {
+            const __timeout = this.__timer.get(sid);
+            if (__timeout) clearTimeout(__timeout);
+        }
+
+        if (maxAge) {
+            this.__timer.set(sid, setTimeout(() => this.destroy(sid), maxAge));
+        }
+        try {
+            this.sessions.set(sid, JSON.stringify(session));
+        } catch (err) {
+            console.log('Set session error:', err);
+        }
+
+        return sid;
     }
  
     destroy(sid) {
@@ -52,4 +45,5 @@ class Store {
     }
 }
 
-module.exports = Store;
+export default Store;
+

@@ -5,7 +5,7 @@ const PROD = process.env.NODE_ENV === "production";
 export default async(ctx, next) => {
     const cur_user =  ctx.session['CUR_USER'];
     const auth_token =  ctx.session['AUTH_TOKEN'];
-    console.log(cur_user, auth_token, 'cur_user', ctx.session)
+    console.log('cur_user', ctx.session)
     if(ctx.url.indexOf('/api/login') == 0){
         await next();
     } else {

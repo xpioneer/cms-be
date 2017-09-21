@@ -25,6 +25,13 @@ if(process.env.NODE_ENV == 'development'){
   App.use(Logger())
 }
 
+// App.use(Session({
+//   key: 'KOA_SESSION_ID',
+//   httpOnly: false,
+//   // store: new Store(),
+//   maxAge: 1000 * 60 * 60,
+// }));
+
 App.use(Session({
   key: 'SESSION_ID',
   store: new Store(),
