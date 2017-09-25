@@ -10,11 +10,13 @@ class UserController {
     static async getById(ctx) {
         let id = ctx.params.id;
         if (id) {
-            let tag = await UserService.getById(id);
+            let user = await UserService.getById(id);
             const model = {
-                id: tag.id,
-                username: tag.username,
-                nick_name: tag.nick_name
+                id: user.id,
+                username: user.username,
+                nick_name: user.nick_name,
+                sex: user.sex,
+                user_type: user.user_type,
             }
             ctx.Json({ data: model });
         } else {
@@ -38,7 +40,10 @@ class UserController {
         const inputs = ctx.request.fields;
         let model = {
             username: inputs.username,
-            nick_name: inputs.nick_name
+            nick_name: inputs.nick_name,
+            sex: inputs.sex,
+            user_type: inputs.user_type,
+            created_at: Date.now()
         }
         const result = await UserService.insert(model);
         ctx.Json({ data: result, msg: '添加成功！' });
