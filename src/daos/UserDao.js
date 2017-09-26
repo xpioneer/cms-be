@@ -1,8 +1,8 @@
 /*qinfeng*/
 import Crypto from 'crypto';
 import DB from '../models'
-
-import TOOLS from '../utils/tools'
+import TOOLS from '../utils/tools';
+import Session from '../utils/session'
 
 const { DateTimeF } = TOOLS;
 const User = DB.User;
@@ -50,6 +50,7 @@ class UserDao {
     }
 
     static async delete(id) {
+        console.log(Session)
         const result = await User.update({
             delete_by: 'heheda',
             deleted_at: Date.now()

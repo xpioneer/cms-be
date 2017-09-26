@@ -16,7 +16,9 @@ let sequelize = new Sequelize(DBConfig.database, DBConfig.username, DBConfig.pas
         min: 0,
         idle: 10000
     },
-    charset:'UTF8_GENERAL_CI'
+    dialectOptions: {
+        charset: 'utf8',
+    }
 });
 
 const ID_TYPE = Sequelize.STRING(32);
