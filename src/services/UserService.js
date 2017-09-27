@@ -19,14 +19,14 @@ class TagService {
         return result;
     }
 
-    static async update (inputs) {
-     const result = await UserDao.update(inputs);
+    static async update (model) {
+     const result = await UserDao.update(model);
      return result;
     }
 
     //更新状态删除
-    static async delete (id) {
-        const result = await UserDao.delete(id);
+    static async delete (id, ctx) {
+        const result = await UserDao.delete(id, ctx);
         return result;
     }
 

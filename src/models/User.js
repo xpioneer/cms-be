@@ -25,6 +25,10 @@ const User = DB.defineModel('user', {
     user_resource: {
       type: Sequelize.STRING(100),
       allowNull: true,
+    },
+    remark: {
+      type: Sequelize.STRING(200),
+      allowNull: true,
     }
   },
 );

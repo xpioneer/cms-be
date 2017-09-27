@@ -23,8 +23,11 @@ class UserDao {
         const params = {
             ...conditions,
             ... {
-                attributes: ['id', 'username', 'user_type', 'nick_name', 'created_at'],
+                attributes: ['id', 'username', 'user_type', 'nick_name', 'created_at', 'sex', 'user_resource', 'remark'],
                 // order: [['created_at', 'desc']]
+            },
+            where: {
+                deleted_at: null
             }
         }
         const pages = await User.findAndCountAll(params);
@@ -36,23 +39,29 @@ class UserDao {
         return result;
     }
 
-    static async update(inputs) {
-        const result = await User.update({
-            username: inputs.username,
-            user_type: inputs.user_type,
+    static async update(model) {
+        const _model = {
+            username: model.username,
+            user_type: model.user_type,
+            password: model.password,
+            nick_name: model.nick_name,
+            sex: model.sex,
+            user_type: model.user_type,
+            remark: model.remark,
             updated_at: Date.now()
-        }, {
+        };
+        if(!_model.password) delete _model.password;
+        const result = await User.update(_model, {
             where: {
-                id: inputs.id
+                id: model.id
             }
         });
         return result;
     }
 
-    static async delete(id) {
-        console.log(Session)
+    static async delete(id, ctx) {
         const result = await User.update({
-            delete_by: 'heheda',
+            deleted_by: ctx.session['CUR_USER'].id,
             deleted_at: Date.now()
         }, {
             where: {
