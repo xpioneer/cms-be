@@ -9,7 +9,11 @@ let json = ctx => data => {
     responseData.msg = "data's type is not an empty object or arrary";
   }
   responseData.status = data.status || 200;
-  ctx.status = responseData.status;
+  let status = responseData.status;
+  if(status == 200 && ctx.method === 'POST' || ctx.method === 'PUT' || ctx.method === 'DELETE'){
+    status = 201;
+  }
+  ctx.status = status;
   return ctx.body = responseData;
 }
 
@@ -18,7 +22,7 @@ let page = ctx =>{
     let responseData = new Object();
     if(typeof data === 'object' && data !== null){
       responseData.data = data.page.rows;
-      let per_page = ctx.query.per_page ? ctx.query.per_page*1 : data.page.count;
+      let per_page = ctx.query.per_page ? ctx.query.per_page*1 : data.page.rows.length;
       responseData.meta = {
         total: data.page.count,
         count: data.page.rows.length,

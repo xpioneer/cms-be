@@ -19,7 +19,7 @@ const Session = (opts = {}) => {
 
         await next(); // any calc
 
-        if (old == JSON.stringify(ctx.session)) return;
+        // if (old == JSON.stringify(ctx.session)) return;
 
         // if is an empty object
         if (ctx.session instanceof Object && !Object.keys(ctx.session).length) {

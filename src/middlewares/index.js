@@ -7,8 +7,6 @@ import Authorize from './authorize'
 import Routes from './routes'
 
 const Middlewares = App => {
-  
-    App.use(Catch);
     // App.use(Cors);
     App.use(Request);
     App.use(Response);

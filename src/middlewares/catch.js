@@ -6,15 +6,16 @@ export default async(ctx, next) => {
             ctx.throw(404)
         }
     } catch (err) {
+        // console.log('catch', err)
         let status = err.status || 500;
         ctx.status = status;
         if(status === 404){
-            return ctx.Json({status: 404, data: null, msg: '未找到资源'})
+            ctx.body = {status: 404, data: null, msg: '未找到资源'};
         }
         else {
             console.log(err)
             let msg = err.data ? err.data.toString() : err.toString();
-            return ctx.Json({status: status, data: msg, msg: msg});
+            ctx.body = {status: status, data: msg, msg: msg};
         }
     }
 }

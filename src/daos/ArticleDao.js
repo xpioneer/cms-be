@@ -4,7 +4,8 @@ import DB from '../models'
 
 const Article = DB.Article;
 const User = DB.User;
-Article.hasOne(User, {as: 'creator', foreignKey: 'id', otherKey: 'created_by'})
+Article.belongsTo(User, {as: 'creator', foreignKey: 'created_by', targetKey: 'id'});
+
 class ArticleDao {
 
     static async getById(id) {
@@ -19,15 +20,15 @@ class ArticleDao {
             },
             order: [['created_at', 'desc']]
         }), {
-            attributes: ['id', 'title', 'abstract', 'pics', 'praise', 'contempt', 'view_count', 'is_original', 'created_at'],
-            include: [{
+            attributes: ['id', 'title', 'abstract', 'pics', 'praise', 'contempt', 'view_count', 'is_original', 'created_at', 'created_by'],
+            include: [
+            {
                 model: User,
-                association: 'creator',
-                // as: 'creator',
-                attributes: ['username', 'nick_name', 'sex', 'user_type'],
-                // // paranoid: false,
+                as: 'creator',
+                attributes: ['id', 'username', 'nick_name', 'sex', 'user_type'],
                 required: false,
-            }]
+            }
+            ]
         });
         const pages = await Article.findAndCountAll(params);
         return pages;
@@ -52,6 +53,18 @@ class ArticleDao {
         }, {
             where: {
                 id: inputs.id
+            }
+        });
+        return result;
+    }
+
+    static async delete(id, CUR_USER) {
+        const result = await Article.update({
+            deleted_by: CUR_USER.id,
+            deleted_at: Date.now()
+        }, {
+            where: {
+                id: id
             }
         });
         return result;

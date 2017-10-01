@@ -6,6 +6,9 @@ const router = new Router({
 });
 
 router
+    .param('/', function(id, ctx, next){
+        console.log(id)
+    })
     .get('/', ArticleCtl.pages)
 	.get('/:id', ArticleCtl.getById)
     .put('/:id', ArticleCtl.update)

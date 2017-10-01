@@ -42,7 +42,7 @@ function defineModel(name, attributes) {
         }
     }
     attrs.created_by = {
-      type: Sequelize.STRING(32),
+      type: ID_TYPE,
       allowNull: true
     };
     attrs.created_at = {
@@ -50,7 +50,7 @@ function defineModel(name, attributes) {
         allowNull: false
     };
     attrs.updated_by = {
-      type: Sequelize.STRING(32),
+      type: ID_TYPE,
       allowNull: true
     };
     attrs.updated_at = {
@@ -58,7 +58,7 @@ function defineModel(name, attributes) {
         allowNull: false
     };
     attrs.deleted_by = {
-        type: Sequelize.STRING(32),
+        type: ID_TYPE,
         allowNull: true
     };
     attrs.deleted_at = {

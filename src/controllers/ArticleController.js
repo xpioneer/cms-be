@@ -3,28 +3,39 @@
 import TOOLS from '../utils/tools';
 import ArticleService from '../services/ArticleService';
 
+import BaseCtrl from './BaseController'
+const user = new BaseCtrl();
 //get params(router 匹配)：ctx.params
 //get url自带参数 ctx.query
 //post请求使用 ctx.request.fields
 // ctx.request.body,
-
+// console.log(BaseCtrl)
 const { DELAY, DateTimeF, Guid, Guid8 } = TOOLS;
 
 class ArticleController {
 
+    constructor(){
+        this.user = new BaseCtrl();
+        console.log(this.user)
+    }
+
     static async getById(ctx) {
-        console.log(ctx.params, ctx.query)
+        // console.log(ctx.params, ctx.query)
         let id = ctx.params.id;
         let article = await ArticleService.getById(id);
-        ctx.Json({ data: article });
+        if(article)
+            ctx.Json({ data: article });
+        else
+            ctx.throw(404)
     }
 
     //GET
     static async pages(ctx) {
+        console.log(user.store.session)
         let conditions = ctx.getParams;
         let pages = await ArticleService.pages(conditions);
         pages.rows.map(m => {
-            m.dataValues.created_at = DateTimeF(m.created_at);
+            m.created_at = DateTimeF(m.created_at);
             return m;
         })
         ctx.Pages({ page: pages });
@@ -41,15 +52,14 @@ class ArticleController {
             is_top: inputs.is_top,
             content: inputs.content,
             tag: inputs.tag,
-            created_at: inputs.created_at
+            created_by: ctx.session['CUR_USER'].id
         }
         const result = await ArticleService.insert(model);
-        ctx.Json({ data: 201, msg: '添加成功！' });
+        ctx.Json({ data: result[0], msg: '添加成功！' });
     }
 
     //PUT
     static async update(ctx) {
-        console.log('ctx.request', ctx.request.fields)
         const id = ctx.params.id;
         const inputs = ctx.request.fields;
         if (id) {
@@ -62,10 +72,11 @@ class ArticleController {
                 pics: inputs.pics,
                 content: inputs.content,
                 is_original: inputs.is_original,
-                tag: inputs.tag
+                tag: inputs.tag,
+                updated_by: ctx.session['CUR_USER'].id
             };
             const result = await ArticleService.update(model);
-            ctx.Json({ data: result });
+            ctx.Json({ data: result[0] });
         } else {
             ctx.throw(400)
         }
@@ -74,10 +85,11 @@ class ArticleController {
 
     //DELETE
     static async delete(ctx) {
+        ctx.throw(500);
         const id = ctx.params.id;
         if (id) {
-            const result = await ArticleService.delete(id);
-            ctx.Json({ data: result, msg: '删除成功!' });
+            const result = await ArticleService.delete(id, ctx);
+            ctx.Json({ data: result[0], msg: '删除成功!' });
         } else {
             ctx.throw(400);
         }

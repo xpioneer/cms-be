@@ -24,11 +24,12 @@ class ArticleService {
         return result;
     }
 
-	// //更新状态删除
-	// static async delete (id) {
-	// 	const result = await Article.delete(id);
-	// 	return result;
-	// }
+	//更新状态删除
+	static async delete (id, ctx) {
+		let CUR_USER = ctx.session['CUR_USER'];
+		const result = await ArticleDao.delete(id, CUR_USER);
+		return result;
+	}
 
 }
 

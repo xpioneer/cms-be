@@ -18,7 +18,7 @@ function uploading(file) {
                 let newName = Guid() + '.' + type;
                 let newPath = filePath + '/' + newName;
                 let exists = Fs.existsSync(filePath);
-                console.log(exists)
+                console.log(exists, 'exists')
                 if (!exists) {
                     Fs.mkdir(filePath, err => {
                         console.log(err)
@@ -29,7 +29,7 @@ function uploading(file) {
                                 if (e) {
                                     reject(e);
                                 } else {
-                                    resolve({ path: newPath, name: name, new_name: newName });
+                                    resolve({ path: newPath.replace(/^\./, 'api'), name: name, new_name: newName });
                                 }
                             });
                         }
@@ -39,7 +39,7 @@ function uploading(file) {
                         if (err) {
                             reject(err);
                         } else {
-                            resolve({ path: newPath, name: name, new_name: newName });
+                            resolve({ path: newPath.replace(/^\./, 'api'), name: name, new_name: newName });
                         }
                     });
                 }
@@ -52,7 +52,32 @@ function uploading(file) {
     });
 }
 
-class TestController {
+function downloading(ctx) {
+    return new Promise((resolve, reject) => {
+        let path = ctx.url.split('?')[0];
+        try {
+            console.log(path)
+            let exists = Fs.existsSync(path.replace(/^\/api/, '.'));
+            if (!exists) {
+                reject('资源不存在');
+            } else {
+                Fs.readFile(path, function(err, data) {
+                    if(err){
+                        reject(err);
+                    }else{
+                        resolve(data);
+                    }
+                });
+            }
+        } catch (e) {
+            reject(e);
+        } finally {
+            console.log('读取完毕！')
+        }
+    });
+}
+
+class UploadFileController {
 
     static async upload(ctx) {
         let files = ctx.request.fields['file'],
@@ -65,6 +90,18 @@ class TestController {
         }
     }
 
+
+    static async download(ctx) {
+        let params = ctx.query;
+        let result = await downloading(ctx);
+        console.log(typeof result === 'object')
+        if(typeof result === 'object'){
+            ctx.Json({data: null, msg: result, status: 404});
+        }else {
+            ctx.body = result;
+        }
+    }
+
 }
 
-export default TestController;
+export default UploadFileController;
