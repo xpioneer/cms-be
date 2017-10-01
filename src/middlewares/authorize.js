@@ -6,8 +6,8 @@ export default async(ctx, next) => {
     const method = ctx.method || 'POST';
     const cur_user =  ctx.session['CUR_USER'];
     const auth_token =  ctx.session['AUTH_TOKEN'];
-    console.log('cur_user', ctx.session)
-    if(ctx.url.indexOf('/api/login') == 0){
+    // console.log('cur_user', ctx.session)
+    if(ctx.url.indexOf('/api/login') == 0 && method === 'POST'){
         await next();
     } else {
         if(cur_user && ctx.url.indexOf('/api/') == 0){

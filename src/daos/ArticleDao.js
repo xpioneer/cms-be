@@ -1,9 +1,10 @@
 /*qinfeng*/
-
+import R from 'ramda';
 import DB from '../models'
 
 const Article = DB.Article;
-
+const User = DB.User;
+Article.hasOne(User, {as: 'creator', foreignKey: 'id', otherKey: 'created_by'})
 class ArticleDao {
 
     static async getById(id) {
@@ -12,18 +13,22 @@ class ArticleDao {
     }
 
     static async pages(conditions) {
-        if (!conditions.order || conditions.order.length == 0) {
-            conditions.order = [
-                ['created_at', 'desc']
-            ];
-        }
-        const params = {
-            ...conditions,
-            ... {
-                attributes: ['id', 'title', 'abstract', 'pics', 'praise', 'contempt', 'view_count', 'is_original', 'created_at'],
-                // order: [['created_at', 'desc']]
-            }
-        }
+        const params = R.mergeWith(R.concat, R.mergeDeepWith(R.concat, conditions, {
+            where: {
+                deleted_at: {$eq:null}
+            },
+            order: [['created_at', 'desc']]
+        }), {
+            attributes: ['id', 'title', 'abstract', 'pics', 'praise', 'contempt', 'view_count', 'is_original', 'created_at'],
+            include: [{
+                model: User,
+                association: 'creator',
+                // as: 'creator',
+                attributes: ['username', 'nick_name', 'sex', 'user_type'],
+                // // paranoid: false,
+                required: false,
+            }]
+        });
         const pages = await Article.findAndCountAll(params);
         return pages;
     }
@@ -34,7 +39,6 @@ class ArticleDao {
     }
 
     static async update(inputs) {
-
         const result = await Article.update({
             title: inputs.title,
             abstract: inputs.abstract,

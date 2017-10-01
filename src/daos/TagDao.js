@@ -1,5 +1,5 @@
 /*qinfeng*/
-
+import R from 'ramda';
 import DB from '../models'
 
 const Tag = DB.Tag;
@@ -12,18 +12,14 @@ class TagDao {
     }
 
     static async pages(conditions) {
-        if (!conditions.order || conditions.order.length == 0) {
-            conditions.order = [
-                ['created_at', 'desc']
-            ];
-        }
-        const params = {
-            ...conditions,
-            ... {
-                attributes: ['id', 'name', 'remark', 'created_at'],
-                // order: [['created_at', 'desc']]
-            }
-        }
+        const params = R.mergeWith(R.concat, R.mergeDeepWith(R.concat, conditions, {
+            where: {
+                deleted_at: {$eq:null}
+            },
+            order: [['created_at', 'desc']]
+        }), {
+            attributes: ['id', 'name', 'remark', 'created_at'],
+        });
         const pages = await Tag.findAndCountAll(params);
         return pages;
     }

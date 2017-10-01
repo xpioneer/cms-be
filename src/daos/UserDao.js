@@ -1,5 +1,6 @@
 /*qinfeng*/
 import Crypto from 'crypto';
+import R from 'ramda';
 import DB from '../models'
 import TOOLS from '../utils/tools';
 import Session from '../utils/session'
@@ -15,21 +16,14 @@ class UserDao {
     }
 
     static async pages(conditions) {
-        if (!conditions.order || conditions.order.length == 0) {
-            conditions.order = [
-                ['created_at', 'desc']
-            ];
-        }
-        const params = {
-            ...conditions,
-            ... {
-                attributes: ['id', 'username', 'user_type', 'nick_name', 'created_at', 'sex', 'user_resource', 'remark'],
-                // order: [['created_at', 'desc']]
-            },
+        const params = R.mergeWith(R.concat, R.mergeDeepWith(R.concat, conditions, {
             where: {
-                deleted_at: null
-            }
-        }
+                deleted_at: {$eq:null}
+            },
+            order: [['created_at', 'desc']]
+        }), {
+            attributes: ['id', 'username', 'user_type', 'nick_name', 'created_at', 'sex', 'user_resource', 'remark']
+        });
         const pages = await User.findAndCountAll(params);
         return pages;
     }

@@ -1,5 +1,5 @@
 /*qinfeng*/
-
+import R from 'ramda';
 import DB from '../models'
 
 const ArticleType = DB.ArticleType;
@@ -12,13 +12,14 @@ class ArticleTypeDao {
     }
 
     static async pages(conditions) {
-        const params = {
-            ...conditions,
-            ... {
-                attributes: ['id', 'type_name', 'remark', 'created_at'],
-                // order: [['created_at', 'desc']]
-            }
-        }
+        const params = R.mergeWith(R.concat, R.mergeDeepWith(R.concat, conditions, {
+            where: {
+                deleted_at: {$eq:null}
+            },
+            order: [['created_at', 'desc']]
+        }), {
+            attributes: ['id', 'type_name', 'remark', 'created_at'],
+        });
         const pages = await ArticleType.findAndCountAll(params);
         return pages;
     }

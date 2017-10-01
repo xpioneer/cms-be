@@ -40,10 +40,11 @@ class ArticleController {
             type_id: inputs.type_id,
             is_top: inputs.is_top,
             content: inputs.content,
+            tag: inputs.tag,
             created_at: inputs.created_at
         }
         const result = await ArticleService.insert(model);
-        ctx.Json({ data: 300, msg: '添加成功！' });
+        ctx.Json({ data: 201, msg: '添加成功！' });
     }
 
     //PUT
