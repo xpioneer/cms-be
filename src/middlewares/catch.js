@@ -1,12 +1,13 @@
 export default async(ctx, next) => {
     try {
-        await next()
+        await next();
+        console.log(ctx.status, ctx.url, 'ctx.status')
         const status = ctx.status || 404;
-        if (status === 404) {
+        if (status === 404 && !ctx.url.match(/^\/api\/uploads\//)) {
             ctx.throw(404)
         }
     } catch (err) {
-        // console.log('catch', err)
+        console.log('catch', err)
         let status = err.status || 500;
         ctx.status = status;
         if(status === 404){

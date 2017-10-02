@@ -16,6 +16,14 @@ export default async(ctx, next) => {
             await next();
         } else {
             let key = ctx.header['Authorization-User'] || ctx.header['authorization-user'] || ctx.query['Authorization-User'];
+            // if(key && key.length === 64 && auth_token === key
+            //     && ctx.url.indexOf('/api/uploads/') == 0
+            //     && ctx.header.accept.match(/^image\/|image\/\*/g)){
+            //     console.log('获取上传文件，走这条路', ctx.url);
+            //     UploadFile.download(ctx);
+            //     await next();
+            //     console.log('读取完毕,返回文件1');
+            // }else
             if(cur_user && ctx.url.indexOf('/api/') == 0){
                 if(key && key.length === 64 && auth_token === key){
                     if(method !== 'GET' && cur_user.user_type == 9 && ctx.url.indexOf('/api/logout') !== 0){
@@ -26,11 +34,6 @@ export default async(ctx, next) => {
                     ctx.session = {};
                     ctx.throw(401);
                 }
-            }else if(key && key.length === 64 && auth_token === key
-                && ctx.url.indexOf('/api/uploads/') == 0
-                && ctx.header.accept.match(/^image\/|image\/\*/g)){
-                UploadFile.download(ctx);
-                await next();
             }else{
                 ctx.session = {};
                 ctx.throw(401);

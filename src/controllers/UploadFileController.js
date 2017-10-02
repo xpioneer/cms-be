@@ -56,23 +56,23 @@ function downloading(ctx) {
     return new Promise((resolve, reject) => {
         let path = ctx.url.split('?')[0];
         try {
-            console.log(path)
-            let exists = Fs.existsSync(path.replace(/^\/api/, '.'));
+            const filePath = path.replace(/^\/api/, '.');
+            let exists = Fs.existsSync(filePath);
             if (!exists) {
-                reject('资源不存在');
+                reject({data: null, msg: '资源不存在', status: 404});
             } else {
-                Fs.readFile(path, function(err, data) {
+                Fs.readFile(filePath, function(err, data) {
                     if(err){
-                        reject(err);
+                        reject({data: null, msg: err.toString(), status: 500});
                     }else{
                         resolve(data);
                     }
                 });
             }
         } catch (e) {
-            reject(e);
+            reject({data: null, msg: e.toString(), status: 500});
         } finally {
-            console.log('读取完毕！')
+            // 
         }
     });
 }
@@ -94,12 +94,7 @@ class UploadFileController {
     static async download(ctx) {
         let params = ctx.query;
         let result = await downloading(ctx);
-        console.log(typeof result === 'object')
-        if(typeof result === 'object'){
-            ctx.Json({data: null, msg: result, status: 404});
-        }else {
-            ctx.body = result;
-        }
+        ctx.body = result;
     }
 
 }

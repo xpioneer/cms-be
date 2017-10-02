@@ -6,6 +6,7 @@ const router = new Router({
 });
 
 router
+    .get('/uploads/:path/:filename', UploadFile.download)
     .post('/upload-file', UploadFile.upload);
 
 export default router
