@@ -3,8 +3,6 @@
 import TOOLS from '../utils/tools';
 import ArticleService from '../services/ArticleService';
 
-import BaseCtrl from './BaseController'
-const user = new BaseCtrl();
 //get params(router 匹配)：ctx.params
 //get url自带参数 ctx.query
 //post请求使用 ctx.request.fields
@@ -13,11 +11,6 @@ const user = new BaseCtrl();
 const { DELAY, DateTimeF, Guid, Guid8 } = TOOLS;
 
 class ArticleController {
-
-    constructor(){
-        this.user = new BaseCtrl();
-        console.log(this.user)
-    }
 
     static async getById(ctx) {
         // console.log(ctx.params, ctx.query)
@@ -31,7 +24,6 @@ class ArticleController {
 
     //GET
     static async pages(ctx) {
-        console.log(user.store.session)
         let conditions = ctx.getParams;
         let pages = await ArticleService.pages(conditions);
         pages.rows.map(m => {

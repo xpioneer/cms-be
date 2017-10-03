@@ -21,6 +21,7 @@ class UserController {
                 nick_name: user.nick_name,
                 sex: user.sex,
                 user_type: user.user_type,
+                remark: user.remark
             }
             ctx.Json({ data: model });
         } else {

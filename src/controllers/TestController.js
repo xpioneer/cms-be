@@ -121,40 +121,18 @@ class TestController {
     }
 
 
-    static async test200(ctx) {
-        ctx.Json({ data: '这里是你需要的数据。', msg: '请求成功', status: 200 });
-    }
-
-    static async test400(ctx) {
-        ctx.throw(400)
-    }
-
-    static async test401(ctx) {
-        ctx.throw(401)
-    }
-
-    static async test403(ctx) {
-        ctx.throw(403);
-    }
-
-    static async test404(ctx) {
-        ctx.throw(404)
-    }
-
-    static async test405(ctx) {
-        ctx.throw(405)
-    }
-
-    static async test406(ctx) {
-        ctx.throw(406)
-    }
-
-    static async test500(ctx) {
-        ctx.throw(500)
-    }
-
-    static async test501(ctx) {
-        ctx.throw(501)
+    static async testStatus(ctx) {
+        const status = ctx.params.status || 400;
+        if(!isNaN(status) && parseInt(status) >= 100 && parseInt(status) <= 600){
+            if(status >= 200 && status < 300){
+                ctx.Json({ data: '这里是你需要的数据。', msg: '请求成功', status: status });
+            }else{
+                ctx.throw(status*1);
+            }
+        }else{
+            console.log(status, 'status')
+            ctx.throw(400, '请输入正确的状态码');
+        }
     }
 }
 

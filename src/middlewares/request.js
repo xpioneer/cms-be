@@ -1,10 +1,10 @@
-import { PER_PAGE } from './constants'
+// xpoineer
 
 let getParams = ctx =>{
   let data = {};
   let query = ctx.query;
   if(query && Object.keys(query).length>0){
-    data['limit'] = (query.per_page ? query.per_page : PER_PAGE) * 1;
+    data['limit'] = (query.per_page ? query.per_page : 10) * 1;
     let current_page = (query.current_page ? query.current_page : 1) - 1;//offset start 0(如果不存在则只返回一条)
     let offset = (query.current_page < 1 ? 0 : current_page) * data['limit'];
     data['offset'] = offset * 1;
