@@ -25,10 +25,11 @@ App.use(Body())
 if (process.env.NODE_ENV == 'development') {
     App.use(Logger())
 }
-
+App.keys = ['Keefe_Keys'];
 App.use(Session({
     key: 'SESSION_ID',
     store: new Store(),
+    signed: true,
     maxAge: 1000 * 60 * 60,
 }));
 

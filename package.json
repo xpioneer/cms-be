@@ -10,6 +10,7 @@
     "prod": "NODE_ENV=production node ./conf/run.js"
   },
   "dependencies": {
+    "ioredis": "^3.2.1",
     "koa": "^2.3.0",
     "koa-better-body": "^3.0.4",
     "koa-favicon": "^2.0.0",
