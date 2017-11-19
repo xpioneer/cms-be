@@ -8,7 +8,8 @@ export default async(ctx, next) => {
     const method = ctx.method || 'POST';
     const cur_user =  ctx.session['CUR_USER'];
     const auth_token =  ctx.session['AUTH_TOKEN'];
-    console.log('cur_user', ctx.session)
+    // console.log('cur_user', ctx.session)
+    // await next();
     if(!PROD && ctx.query['root'] == 99){
         await next();
     } else {

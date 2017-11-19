@@ -9,6 +9,8 @@ import accountRouter from './accountrouter';
 
 import comRouter from './comrouter.js';
 
+import systemLogRouter from './systemlogrouter.js';
+
 export default [
 	testRouter,
 	articleRouter,
@@ -16,5 +18,6 @@ export default [
     tagRouter,
     userRouter,
     accountRouter,
-    comRouter
+    comRouter,
+    systemLogRouter,
 ]

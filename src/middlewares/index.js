@@ -3,6 +3,7 @@ import Request from './request'
 import Response from './response'
 import Catch from './catch'
 import Authorize from './authorize'
+import SystemLog from './systemlog'
 
 import Routes from './routes'
 
