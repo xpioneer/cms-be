@@ -47,7 +47,8 @@ class ArticleController {
             created_by: ctx.session['CUR_USER'].id
         }
         const result = await ArticleService.insert(model);
-        ctx.Json({ data: result[0], msg: '添加成功！' });
+        console.log(result)
+        ctx.Json({ data: result.id, msg: '添加成功！' });
     }
 
     //PUT
@@ -68,6 +69,7 @@ class ArticleController {
                 updated_by: ctx.session['CUR_USER'].id
             };
             const result = await ArticleService.update(model);
+            console.log(result)
             ctx.Json({ data: result[0] });
         } else {
             ctx.throw(400)

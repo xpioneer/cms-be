@@ -13,7 +13,7 @@ export default async(ctx, next) => {
         // console.log('catch', err, err.status)
         try{
             let status = err.status || 500;
-            Logger(ctx, start, status); // log
+            Logger(ctx, start, status, err.toString()); // log
             ctx.status = status;
             if(status === 404){
                 ctx.body = {status: 404, data: null, msg: '未找到资源'};

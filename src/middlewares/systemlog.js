@@ -1,8 +1,9 @@
 import SystemLogService from '../services/SystemLogService';
 import getClientType from '../utils/tools/clienttype'
 
-const Logger = (ctx, start, status) => {
+const Logger = (ctx, start, status, msg) => {
   const data = createModel(ctx);
+  data.msg = msg || '';
   data.time = Date.now() - start;
   SystemLogService.insert(ctx, data, status)
 }
@@ -33,7 +34,11 @@ function createModel(ctx){
       break;
     case 'POST':
     case 'PUT':
-      data.request_params = JSON.stringify(ctx.request.fields);
+      let params = JSON.stringify(ctx.request.fields);
+      if(ctx.url.indexOf('/api/login') == 0 && method === 'POST'){
+        params = params.replace(/"password":".+\b"/, '******');
+      }
+      data.request_params = params;
       break;
     default:
       data.request_params = ctx.search;
