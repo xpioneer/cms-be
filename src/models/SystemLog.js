@@ -26,6 +26,14 @@ const SystemLog = DB.defineModel('system_log', {
       type: Sequelize.STRING(500),
       allowNull: true
     },
+    client_type: {
+      type: Sequelize.STRING(20),
+      allowNull: true
+    },
+    client_version: {
+      type: Sequelize.STRING(50),
+      allowNull: true
+    },
     host: {
       type: Sequelize.STRING(100),
       allowNull: true

@@ -20,7 +20,8 @@ class SystemLogDao {
             },
             order: [['created_at', 'desc']]
         }), {
-            attributes: ['id', 'request_ip', 'request_ip_v6', 'request_url', 'request_method', 'request_params', 'request_client', 'created_at', 'created_by'],
+            attributes: ['id', 'request_ip', 'request_ip_v6', 'request_url', 'request_method',
+                'request_params', 'request_version', 'status', 'time', 'created_at', 'created_by'],
             include: [
             {
                 model: User,

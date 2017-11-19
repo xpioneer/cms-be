@@ -1,4 +1,5 @@
 import SystemLogService from '../services/SystemLogService';
+import getClientType from '../utils/tools/clienttype'
 
 const Logger = (ctx, start, status) => {
   const data = createModel(ctx);
@@ -8,12 +9,16 @@ const Logger = (ctx, start, status) => {
 
 function createModel(ctx){
   let method = ctx.method;
+  let userAgent = ctx.header['user-agent'];
+  let ClientType = getClientType(userAgent);
   let data = {
     request_ip: ctx.ip.substring(ctx.ip.lastIndexOf(':') + 1, ctx.ip.length),
     request_ip_v6: ctx.ip,
     request_url: ctx.url,
     request_method: method,
-    request_client: ctx.header['user-agent'],
+    request_client: userAgent,
+    client_type: ClientType.type,
+    client_version: ClientType.version,
     host: ctx.host,
     hostname: ctx.hostname,
     path: ctx.path,
