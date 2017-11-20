@@ -13,15 +13,14 @@ function createModel(ctx){
   let userAgent = ctx.header['user-agent'];
   let ClientType = getClientType(userAgent);
   let data = {
-    request_ip: ctx.ip.substring(ctx.ip.lastIndexOf(':') + 1, ctx.ip.length),
-    request_ip_v6: ctx.ip,
+    request_ip: ctx.header['x-real-ip'] || ctx.hostname,
     request_url: ctx.url,
     request_method: method,
     request_client: userAgent,
     client_type: ClientType.type,
     client_version: ClientType.version,
     host: ctx.host,
-    hostname: ctx.hostname,
+    hostname: ctx.header['x-host'],
     path: ctx.path,
     request_header: JSON.stringify(ctx.header),
     protocol: ctx.protocol,

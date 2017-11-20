@@ -4,11 +4,7 @@ import DB from "./db"
 const SystemLog = DB.defineModel('system_log', {
     request_ip: {
       type: Sequelize.STRING(50),
-      allowNull: false,
-    },
-    request_ip_v6: {
-      type: Sequelize.STRING(100),
-      allowNull: false,
+      allowNull: true,
     },
     request_url: {
       type: Sequelize.STRING(500),
