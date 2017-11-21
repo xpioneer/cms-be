@@ -62,7 +62,7 @@ const SystemLog = DB.defineModel('system_log', {
       type: Sequelize.INTEGER,
       allowNull: true
     },
-    time: {
+    msg: {
       type: Sequelize.STRING(1000),
       allowNull: true
     }

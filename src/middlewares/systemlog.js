@@ -2,10 +2,12 @@ import SystemLogService from '../services/SystemLogService';
 import getClientType from '../utils/tools/clienttype'
 
 const Logger = (ctx, start, status, msg) => {
-  const data = createModel(ctx);
-  data.msg = msg || '';
-  data.time = Date.now() - start;
-  SystemLogService.insert(ctx, data, status)
+  if(ctx.url.indexOf('/api/systemlog') !== 0){
+    const data = createModel(ctx);
+    data.msg = msg || '';
+    data.time = Date.now() - start;
+    SystemLogService.insert(ctx, data, status);
+  }
 }
 
 function createModel(ctx){

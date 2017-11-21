@@ -15,15 +15,19 @@ class UserController {
         let id = ctx.params.id;
         if (id) {
             let user = await UserService.getById(id);
-            const model = {
-                id: user.id,
-                username: user.username,
-                nick_name: user.nick_name,
-                sex: user.sex,
-                user_type: user.user_type,
-                remark: user.remark
+            if (user) {
+                const model = {
+                    id: user.id,
+                    username: user.username,
+                    nick_name: user.nick_name,
+                    sex: user.sex,
+                    user_type: user.user_type,
+                    remark: user.remark
+                }
+                ctx.Json({ data: model });
+            } else {
+                ctx.Json({ data: user, status: 404 });
             }
-            ctx.Json({ data: model });
         } else {
             ctx.throw(400);
         }

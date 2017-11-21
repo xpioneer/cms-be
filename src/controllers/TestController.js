@@ -124,8 +124,9 @@ class TestController {
     static async testStatus(ctx) {
         const status = ctx.params.status || 400;
         if(!isNaN(status) && parseInt(status) >= 100 && parseInt(status) <= 600){
+            console.log('status:', status)
             if(status >= 200 && status < 300){
-                ctx.Json({ data: '这里是你需要的数据。', msg: '请求成功', status: status });
+                ctx.Json({ data: '这里是你需要的数据。', msg: '请求成功', status: status*1 });
             }else{
                 ctx.throw(status*1);
             }

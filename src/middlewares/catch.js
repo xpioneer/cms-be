@@ -5,12 +5,13 @@ export default async(ctx, next) => {
     try {
         await next();
         const status = ctx.status || 404;
-        Logger(ctx, start, status); // log
+        console.log(ctx.status, 'log....')
         if(status === 404){
             ctx.throw(404);
         }
+        Logger(ctx, start, status); // log
     } catch (err) {
-        // console.log('catch', err, err.status)
+        console.log('catch', err, err.status)
         try{
             let status = err.status || 500;
             Logger(ctx, start, status, err.toString()); // log

@@ -27,13 +27,16 @@ let getParams = ctx =>{
             case '<=':
               data['where'][colFilter.col] = { $lte: colFilter.val };break;
             case 'in':
-              data['where'][colFilter.col] = { $in: colFilter.val };break;
+              data['where'][colFilter.col] = { $in: colFilter.val.split(',') };break;
             case '!=':
               data['where'][colFilter.col] = { $ne: colFilter.val };break;
-            case '$or':
+            case 'or':
               data['where'][colFilter.col] = { $or: colFilter.val };break;
             case '=':
               data['where'][colFilter.col] = colFilter.val;break;
+            case 'between':
+              let arr = colFilter.val ? colFilter.val.split(',') : [];
+              data['where'][colFilter.col] = { between: arr };break;
             default:
               data['where'][colFilter.col] = colFilter.val;break;
           }

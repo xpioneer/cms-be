@@ -21,14 +21,12 @@ class ArticleDao {
             order: [['created_at', 'desc']]
         }), {
             attributes: ['id', 'title', 'abstract', 'pics', 'praise', 'contempt', 'view_count', 'is_original', 'created_at', 'created_by'],
-            include: [
-            {
+            include: [{
                 model: User,
                 as: 'creator',
                 attributes: ['id', 'username', 'nick_name', 'sex', 'user_type'],
                 required: false,
-            }
-            ]
+            }]
         });
         const pages = await Article.findAndCountAll(params);
         return pages;

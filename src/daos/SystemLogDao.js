@@ -9,7 +9,16 @@ SystemLog.belongsTo(User, {as: 'creator', foreignKey: 'created_by', targetKey: '
 class SystemLogDao {
 
     static async getById(id) {
-        const model = await SystemLog.findById(id);
+        // const model = await SystemLog.findById(id);
+        const model = await SystemLog.findOne({
+            where: { id: id },
+            include: [{
+                model: User,
+                as: 'creator',
+                attributes: ['id', 'username', 'nick_name', 'sex', 'user_type'],
+                required: false,
+            }]
+        });
         return model;
     }
 
@@ -20,16 +29,14 @@ class SystemLogDao {
             },
             order: [['created_at', 'desc']]
         }), {
-            attributes: ['id', 'request_ip', 'request_ip_v6', 'request_url', 'request_method',
-                'request_params', 'client_version', 'status', 'time', 'created_at', 'created_by'],
-            include: [
-            {
+            attributes: ['id', 'request_ip', 'request_url', 'request_method', 'request_params',
+                'client_version', 'status', 'time', 'msg', 'created_at', 'created_by'],
+            include: [{
                 model: User,
                 as: 'creator',
                 attributes: ['id', 'username', 'nick_name', 'sex', 'user_type'],
                 required: false,
-            }
-            ]
+            }]
         });
         const pages = await SystemLog.findAndCountAll(params);
         return pages;
