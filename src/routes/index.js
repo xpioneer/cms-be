@@ -6,6 +6,7 @@ import articleTypeRouter from './articletyperouter';
 import tagRouter from './tagrouter';
 import userRouter from './userrouter';
 import accountRouter from './accountrouter';
+import commentRouter from './commentrouter';
 
 import comRouter from './comrouter.js';
 
@@ -18,6 +19,7 @@ export default [
     tagRouter,
     userRouter,
     accountRouter,
+    commentRouter,
     comRouter,
     systemLogRouter,
 ]
