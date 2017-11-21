@@ -7,4 +7,6 @@ node_modules
 src/config
 uploads
 
+start.json
+
 .vscode
