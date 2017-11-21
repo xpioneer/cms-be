@@ -9,7 +9,6 @@ SystemLog.belongsTo(User, {as: 'creator', foreignKey: 'created_by', targetKey: '
 class SystemLogDao {
 
     static async getById(id) {
-        // const model = await SystemLog.findById(id);
         const model = await SystemLog.findOne({
             where: { id: id },
             include: [{
