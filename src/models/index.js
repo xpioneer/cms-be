@@ -17,5 +17,4 @@ for (let f of js_files) {
 
 Obj["sync"] = () => { DB.sync(); }
 
-// export default Obj
 module.exports = Obj;
