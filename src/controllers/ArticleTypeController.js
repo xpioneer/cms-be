@@ -66,9 +66,7 @@ class ArticleController {
 
     // DELETE
     static async delete(ctx) {
-        // console.log(ctx.params)
         const id = ctx.params.id;
-        // id = 0;
         if (id) {
             const result = await ArticleTypeService.delete(id);
             ctx.Json({ data: result, msg: '删除成功!' });
