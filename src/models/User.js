@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
-import DB from "./db"
+import db from "./db"
 
-const User = DB.defineModel('user', {
+const User = db.defineModel('user', {
     username: {
       type: Sequelize.STRING(50),
       allowNull: false,

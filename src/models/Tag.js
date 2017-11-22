@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
-import DB from "./db"
+import db from "./db"
 
-const Tag = DB.defineModel('tag', {
+const Tag = db.defineModel('tag', {
     name: {
       type: Sequelize.STRING(20),
       allowNull: false,

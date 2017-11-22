@@ -99,6 +99,7 @@ function defineModel(name, attributes) {
 }
 
 export default {
+    sequelize,
     defineModel,
     sync(){
         if (process.env.NODE_ENV !== 'production') {

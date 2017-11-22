@@ -9,8 +9,8 @@ class CommentService {
         return article;
     }
 
-    static async pages (conditions) {
-        const pages = await CommentDao.pages(conditions);
+    static async pages (conditions, query) {
+        const pages = await CommentDao.pages(conditions, query);
         return pages;
     }
 

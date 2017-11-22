@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
-import DB from "./db"
+import db from "./db"
 
-const SystemLog = DB.defineModel('system_log', {
+const SystemLog = db.defineModel('system_log', {
     request_ip: {
       type: Sequelize.STRING(50),
       allowNull: true,

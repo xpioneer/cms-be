@@ -24,7 +24,7 @@ class CommentController {
                 parent_id: model.parent_id,
                 ip: model.ip,
                 client: model.client,
-                created_at: model.created_at,
+                created_at: DateTimeF(model.created_at),
                 created_by: model.created_by,
                 creator: model.creator
             }
@@ -37,7 +37,8 @@ class CommentController {
     //GET
     static async pages(ctx) {
         let conditions = ctx.getParams;
-        let pages = await CommentService.pages(conditions);
+        const query = ctx.query;
+        let pages = await CommentService.pages(conditions, {...ctx.query});
         pages.rows.map(m => {
             m.created_at = DateTimeF(m.created_at);
             return m;

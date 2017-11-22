@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
-import DB from "./db"
+import db from "./db"
 
-const Article = DB.defineModel('article', {
+const Article = db.defineModel('article', {
     type_id: {
       type: Sequelize.STRING(32),
       allowNull: false,

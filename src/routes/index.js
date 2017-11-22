@@ -7,7 +7,7 @@ import tagRouter from './tagrouter';
 import userRouter from './userrouter';
 import accountRouter from './accountrouter';
 import commentRouter from './commentrouter';
-
+import chartRouter from './chartrouter';
 import comRouter from './comrouter.js';
 
 import systemLogRouter from './systemlogrouter.js';
@@ -20,6 +20,7 @@ export default [
     userRouter,
     accountRouter,
     commentRouter,
+    chartRouter,
     comRouter,
     systemLogRouter,
 ]
