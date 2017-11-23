@@ -18,7 +18,8 @@ let sequelize = new Sequelize(DBConfig.database, DBConfig.username, DBConfig.pas
     },
     dialectOptions: {
         charset: 'utf8',
-    }
+    },
+    timezone: '+08:00'
 });
 
 const ID_TYPE = Sequelize.STRING(32);

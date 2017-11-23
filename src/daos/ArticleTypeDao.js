@@ -31,7 +31,6 @@ class ArticleTypeDao {
 
     static async update(id, inputs) {
         let now = Date.now();
-        console.log(now, 'Date.now()')
         const result = await ArticleType.update({
             type_name: inputs.type_name,
             remark: inputs.remark,

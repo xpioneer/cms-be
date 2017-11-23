@@ -10,6 +10,7 @@ router
         console.log(id)
     })
     .get('/systemlog', ChartCtl.getSystemLog)
+    .get('/systemlogdate', ChartCtl.getSystemLogDate)
     .get('/articletype', ChartCtl.getArticleType)
     .get('/articletag', ChartCtl.getArticleTag);
 

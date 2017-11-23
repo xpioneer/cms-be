@@ -13,6 +13,12 @@ class ChartController {
         ctx.Json({ data: model });
     }
 
+    // 每天系统日志分时统计
+    static async getSystemLogDate(ctx) {
+        const date = DateTimeF(ctx.query['date']) || new Date();
+        let model = await ChartService.getSystemLogDate(date);
+        ctx.Json({ data: model });
+    }
 
     // 统计文章类型
     static async getArticleType(ctx) {

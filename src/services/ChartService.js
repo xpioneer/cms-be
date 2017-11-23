@@ -7,6 +7,10 @@ class ChartService {
         return await ChartDao.getSystemLog();
     }
 
+    static async getSystemLogDate(date) {
+        return await ChartDao.getSystemLogDate(date);
+    }
+
     static async getArticleType() {
         return await ChartDao.getArticleType();
     }
