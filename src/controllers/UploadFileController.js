@@ -6,6 +6,14 @@ import ArticleService from '../services/ArticleService';
 
 const { DateF, Guid } = TOOLS;
 
+const MIME = {
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    gif: 'image/gif',
+    png: 'image/png',
+    ico: 'image/x-icon'
+}
+
 const filePath = './' + 'uploads/' + DateF(Date.now()).replace(/-/g, '');
 
 function uploading(file) {
@@ -29,7 +37,7 @@ function uploading(file) {
                                 if (e) {
                                     reject(e);
                                 } else {
-                                    resolve({ path: newPath.replace(/^\./, 'api'), name: name, new_name: newName });
+                                    resolve({ path: newPath.replace(/^\./, ''), name: name, new_name: newName });
                                 }
                             });
                         }
@@ -39,7 +47,7 @@ function uploading(file) {
                         if (err) {
                             reject(err);
                         } else {
-                            resolve({ path: newPath.replace(/^\./, 'api'), name: name, new_name: newName });
+                            resolve({ path: newPath.replace(/^\./, ''), name: name, new_name: newName });
                         }
                     });
                 }
@@ -52,11 +60,10 @@ function uploading(file) {
     });
 }
 
-function downloading(ctx) {
+function downloading(path) {
     return new Promise((resolve, reject) => {
-        let path = ctx.url.split('?')[0];
         try {
-            const filePath = path.replace(/^\/api/, '.');
+            const filePath = '.' + path;
             let exists = Fs.existsSync(filePath);
             if (!exists) {
                 reject({data: null, msg: '资源不存在', status: 404});
@@ -92,8 +99,10 @@ class UploadFileController {
 
 
     static async download(ctx) {
-        let params = ctx.query;
-        let result = await downloading(ctx);
+        const url = ctx.url.split('?')[0];
+        const result = await downloading(url);
+        const type = url.split('.')[1];
+        ctx.type = MIME[type] || 'application/octet-stream';
         ctx.body = result;
     }
 
