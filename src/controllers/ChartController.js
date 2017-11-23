@@ -3,7 +3,7 @@
 import TOOLS from '../utils/tools';
 import ChartService from '../services/ChartService';
 
-const { DELAY, DateTimeF, Guid, Guid8 } = TOOLS;
+const { DELAY, DateF, Guid, Guid8 } = TOOLS;
 
 class ChartController {
 
@@ -15,7 +15,7 @@ class ChartController {
 
     // 每天系统日志分时统计
     static async getSystemLogDate(ctx) {
-        const date = DateTimeF(ctx.query['date']) || new Date();
+        const date = DateF(ctx.query['date']) || DateF(new Date());
         let model = await ChartService.getSystemLogDate(date);
         ctx.Json({ data: model });
     }
