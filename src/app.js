@@ -30,7 +30,7 @@ App.use(Session({
     key: 'SESSION_ID',
     store: new Store(),
     signed: true,
-    maxAge: 1000 * 60,
+    maxAge: 1000 * 60 * 60,
 }));
 
 Middlewares(App) //注入自定义中间件
