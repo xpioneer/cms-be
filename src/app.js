@@ -20,7 +20,11 @@ Qs(App, 'extended')
 App.use(Favicon(process.cwd() + '/src/public/favicon.ico'))
     // App.use( Views(process.cwd() + '/public/views', { map: { html: 'ejs' } }) )//测试页面
 
-App.use(Body())
+App.use(Body({
+    jsonLimit: '5mb',
+    formLimit: '5mb',
+    textLimit: '1mb'
+}))
 
 if (process.env.NODE_ENV == 'development') {
     App.use(Logger())
