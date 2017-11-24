@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
 
 import TOOLS from '../utils/tools'
-import DBConfig from '../config/DBConfig'
+import { DBConfig } from '../config/DBConfig'
 
 const { Guid } = TOOLS
 

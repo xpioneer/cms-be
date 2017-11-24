@@ -16,6 +16,7 @@ class AccountController {
         const inputs = ctx.request.fields;
         let username = inputs.username;
         let password = inputs.password;
+        console.log(inputs)
         if ((username && username.length > 0) && (password && password.length > 0)) {
             const result = await UserService.login(username, cryptoPwd(password, username));
             if (result > 0) {

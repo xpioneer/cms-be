@@ -55,7 +55,6 @@ class ChartDao {
             type: 'SELECT'
         });
         if(list.length > 0){
-            console.log(list[0])
             return list[0];
         }
         return [];
