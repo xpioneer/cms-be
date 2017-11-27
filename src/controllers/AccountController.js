@@ -1,6 +1,7 @@
 /*qinfeng*/
 import Crypto from 'crypto';
 import TOOLS from '../utils/tools';
+import Store from '../utils/session/store';
 import UserService from '../services/UserService';
 
 const { DELAY, DateTimeF, Guid, Guid8 } = TOOLS;
@@ -9,6 +10,9 @@ const cryptoPwd = (pwd, key) => {
     return Crypto.createHmac('sha256', key).update(pwd).digest('hex');
 }
 
+const store = new Store();
+let lock = false;
+
 class AccountController {
 
     //POST
@@ -16,11 +20,11 @@ class AccountController {
         const inputs = ctx.request.fields;
         let username = inputs.username;
         let password = inputs.password;
-        console.log(inputs)
         if ((username && username.length > 0) && (password && password.length > 0)) {
             const result = await UserService.login(username, cryptoPwd(password, username));
             if (result > 0) {
                 const user = await UserService.getByName(username);
+                await store.checkLogin(user.id);
                 ctx.session['CUR_USER'] = user;
                 ctx.session['AUTH_TOKEN'] = Crypto.randomBytes(32).toString('hex');
                 ctx.Json({ data: user, msg: ctx.session['AUTH_TOKEN'] });

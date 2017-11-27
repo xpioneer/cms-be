@@ -36,8 +36,11 @@ function createModel(ctx){
     case 'POST':
     case 'PUT':
       let params = JSON.stringify(ctx.request.fields);
-      if(ctx.url.indexOf('/api/login') == 0 && method === 'POST'){
+      if(ctx.url.match(/^\/api\/login/) && method.match(/^POST$/)){
         params = params.replace(/"password":".+\b"/, '******');
+      }
+      if(ctx.url.match(/^\/api\/article(\/[\w]+|$)/) && method.match(/^PUT$|^POST$/)){
+        params = (method.match(/^POST$/) ? '添加' : '更新') + '了一篇文章';
       }
       data.request_params = params;
       break;

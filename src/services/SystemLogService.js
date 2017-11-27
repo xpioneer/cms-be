@@ -15,7 +15,7 @@ class SystemLogService {
     }
 
     static async insert (ctx, model, status) {
-        model.created_by = ctx.session['CUR_USER'] ? ctx.session['CUR_USER'].id : null;
+        model.created_by = ctx.session && ctx.session['CUR_USER'] ? ctx.session['CUR_USER'].id : null;
         model.status = status || ctx.status;
         const result = await SystemLogDao.insert(model);
         return result;

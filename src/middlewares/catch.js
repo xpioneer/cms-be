@@ -10,7 +10,7 @@ export default async(ctx, next) => {
         }
         Logger(ctx, start, status); // log
     } catch (err) {
-        // console.log('catch', err, err.status)
+        console.log('catch', err, err.status)
         try{
             let status = err.status || 500;
             Logger(ctx, start, status, err.toString()); // log

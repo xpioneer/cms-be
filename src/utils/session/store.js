@@ -9,7 +9,6 @@ import TOOLS from '../tools';
 class RedisStore extends Store {
     constructor() {
         super();
-        console.log(this)
         // this.sessions = new Map();
         // this.__timer = new Map();
         // this.session = {};
@@ -57,13 +56,24 @@ class RedisStore extends Store {
  
     async set(session, { sid =  this.getID(32), maxAge } = {}) {
         try {
+            await this.redis.set(session['CUR_USER'].id, `${sid}`, 'PX', maxAge);
             await this.redis.set(`${sid}`, JSON.stringify(session), 'PX', maxAge);
         } catch (e) {}
         return sid;
     }
 
     async destroy(sid) {
+        const Session = await this.get(sid);
+        if(Session && Session.CUR_USER) {
+            await this.redis.del(`${Session.CUR_USER.id}`)
+        }
         return await this.redis.del(`${sid}`);
+    }
+
+    async checkLogin(userId) {
+        const sid = await this.redis.get(`${userId}`);
+        if(sid) await this.destroy(sid);
+        return sid;
     }
 }
 

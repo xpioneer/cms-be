@@ -19,7 +19,7 @@ export default async(ctx, next) => {
             let key = ctx.header['Authorization-User'] || ctx.header['authorization-user'] || ctx.query['Authorization-User'];
             if(cur_user && ctx.url.match(/^\/(api|uploads)\//)){
                 if(key && key.length === 64 && auth_token === key){
-                    if(method !== 'GET' && cur_user.user_type == 9 && ctx.url.match(/^\/api\/logout/)){
+                    if(method !== 'GET' && cur_user.user_type == 9 && !ctx.url.match(/^\/api\/logout/)){
                         ctx.throw(403, '禁止访问！');
                     }
                     await next();
