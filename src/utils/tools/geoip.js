@@ -1,9 +1,9 @@
-import GeoIp2 from 'geoip2';
+// import GeoIp2 from 'geoip2';
 import R from 'ramda';
 const _DEV_ = process.env.NODE_ENV === "development";
-GeoIp2.init();
+// GeoIp2.init();
 const getGeo = (ip) => {
-    if(_DEV_) {
+    if(true) {
         return new Promise((resolve, reject) => {
             resolve({
                 continent: {names:{}},
