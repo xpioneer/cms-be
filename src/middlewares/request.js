@@ -1,6 +1,25 @@
 // xpoineer
 import moment from 'moment';
 
+const setCreatedAt = (colFilter) => {
+  let arr = [];
+  if(toString.call(colFilter.val) === '[object Array]') {
+    arr = colFilter.val.map((v) => {
+      if(colFilter.col === 'created_at')
+        return moment(v).format('x')
+      return v;
+    });
+  }
+  if(typeof colFilter.val === 'string') {
+    arr = colFilter.val ? colFilter.val.split(',').map((v) => {
+      if(colFilter.col === 'created_at')
+        return moment(v).format('x')
+      return v;
+    }) : [];
+  }
+  return arr;
+}
+
 let getParams = ctx =>{
   let data = {};
   let query = ctx.query;
@@ -36,22 +55,7 @@ let getParams = ctx =>{
             case '=':
               data['where'][colFilter.col] = colFilter.val;break;
             case 'between':
-              let arr = [];
-              if(toString.call(colFilter.val) === '[object Array]') {
-                arr = colFilter.val.map((v) => {
-                  if(colFilter.col === 'created_at')
-                    return moment(v).format('x')
-                  return v;
-                });
-              }
-              if(typeof colFilter.val === 'string') {
-                arr = colFilter.val ? colFilter.val.split(',').map((v) => {
-                  if(colFilter.col === 'created_at')
-                    return moment(v).format('x')
-                  return v;
-                }) : [];
-              }
-              data['where'][colFilter.col] = { between: arr };break;
+              data['where'][colFilter.col] = { between: setCreatedAt(colFilter) };break;
             default:
               data['where'][colFilter.col] = colFilter.val;break;
           }
