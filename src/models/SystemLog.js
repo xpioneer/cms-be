@@ -65,6 +65,86 @@ const SystemLog = db.defineModel('system_log', {
     msg: {
       type: Sequelize.STRING(1000),
       allowNull: true
+    },
+    continent_code: {
+      type: Sequelize.STRING(20),
+      allowNull: true
+    },
+    continent_name_en: {
+      type: Sequelize.STRING(50),
+      allowNull: true
+    },
+    continent_name_zh: {
+      type: Sequelize.STRING(50),
+      allowNull: true
+    },
+    continent_geoname_id: {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
+    country_iso_code: {
+      type: Sequelize.STRING(20),
+      allowNull: true
+    },
+    country_name_en: {
+      type: Sequelize.STRING(50),
+      allowNull: true
+    },
+    country_name_zh: {
+      type: Sequelize.STRING(50),
+      allowNull: true
+    },
+    country_geoname_id: {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
+    subdivisions_iso_code: {
+      type: Sequelize.STRING(20),
+      allowNull: true
+    },
+    subdivisions_name_en: {
+      type: Sequelize.STRING(50),
+      allowNull: true
+    },
+    subdivisions_name_zh: {
+      type: Sequelize.STRING(50),
+      allowNull: true
+    },
+    subdivisions_geoname_id: {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
+    city_name_en: {
+      type: Sequelize.STRING(50),
+      allowNull: true
+    },
+    city_name_zh: {
+      type: Sequelize.STRING(50),
+      allowNull: true
+    },
+    city_geoname_id: {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
+    accuracy_radius: {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
+    latitude: {
+      type: Sequelize.STRING(10),
+      allowNull: true
+    },
+    longitude: {
+      type: Sequelize.STRING(10),
+      allowNull: true
+    },
+    metro_code: {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
+    time_zone: {
+      type: Sequelize.STRING(50),
+      allowNull: true
     }
   },
 );

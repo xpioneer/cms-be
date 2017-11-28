@@ -33,6 +33,16 @@ class SystemLogService {
         return result;
     }
 
+    static async updateModel(model) {
+        const result = await SystemLogDao.update(model);
+        return result;
+    }
+
+    static async findAllEN() {
+        const result = await SystemLogDao.findAllEN();
+        return result;
+    }
+
 }
 
 export default SystemLogService;

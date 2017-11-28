@@ -1,6 +1,7 @@
 /*qinfeng*/
-
+import R from 'ramda';
 import TOOLS from '../utils/tools';
+import GeoIp from '../utils/tools/geoip';
 import SystemLogService from '../services/SystemLogService';
 
 //get params(router 匹配)：ctx.params
@@ -94,7 +95,6 @@ class SystemLogController {
         } else {
             ctx.throw(400)
         }
-
     }
 
     //DELETE
@@ -106,6 +106,25 @@ class SystemLogController {
             ctx.Json({ data: result[0], msg: '删除成功!' });
         } else {
             ctx.throw(400);
+        }
+    }
+
+    // 更新ip地址
+    static async updateGeoIp(ctx) {
+        const list = await SystemLogService.findAllEN();
+        let counter = 0;
+        if(list.length > 0) {
+            list.forEach(async(v, i) => {
+                const ipInfo = await GeoIp.getModelGeoInfo(v.request_ip);
+                const model = R.merge(R.concat, v.dataValues, ipInfo);
+                model['updated_at'] = Date.now();
+                model['updated_by'] = ctx.session['CUR_USER'].id;
+                await SystemLogService.updateModel(model);
+                counter++;
+            });
+            ctx.Json({ data: list, msg: '更新成功!' });
+        }else{
+            ctx.Json({ data: 0, msg: '更新成功!' });
         }
     }
 

@@ -29,7 +29,8 @@ class SystemLogDao {
             order: [['created_at', 'desc']]
         }), {
             attributes: ['id', 'request_ip', 'request_url', 'request_method', 'request_params',
-                'client_version', 'status', 'time', 'msg', 'created_at', 'created_by'],
+                'client_version', 'status', 'time', 'msg', 'continent_name_zh', 'country_name_zh',
+                'subdivisions_name_zh', 'city_name_zh', 'created_at', 'created_by'],
             include: [{
                 model: User,
                 as: 'creator',
@@ -77,6 +78,27 @@ class SystemLogDao {
         return result;
     }
 
+    // 更新model
+    static async updateModel(model) {
+        const result = await SystemLog.update(model, {
+            where: {
+                id: model.id
+            }
+        });
+        return result;
+    }
+
+    // 查询所有空地址的记录
+    static async findAllEN() {
+        const result = await SystemLog.findAll({
+            where: {
+                continent_code: null
+            },
+            // offset: 0,
+            // limit: 2
+        });
+        return result;
+    }
 }
 
 export default SystemLogDao;

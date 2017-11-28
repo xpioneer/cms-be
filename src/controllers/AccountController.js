@@ -1,6 +1,7 @@
 /*qinfeng*/
 import Crypto from 'crypto';
 import TOOLS from '../utils/tools';
+import GeoIp from '../utils/tools/geoip';
 import Store from '../utils/session/store';
 import UserService from '../services/UserService';
 
@@ -17,6 +18,10 @@ class AccountController {
 
     //POST
     static async login(ctx) {
+        console.log(ctx.header);
+        const ip = '45.77.218.105';
+        const r = await GeoIp.getGeoInfo(ip);
+        console.log('r:', r)
         const inputs = ctx.request.fields;
         let username = inputs.username;
         let password = inputs.password;

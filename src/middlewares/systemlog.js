@@ -1,9 +1,13 @@
+import R from 'ramda';
+import GeoIp from '../utils/tools/geoip';
 import SystemLogService from '../services/SystemLogService';
 import getClientType from '../utils/tools/clienttype'
 
-const Logger = (ctx, start, status, msg) => {
+const Logger = async(ctx, start, status, msg) => {
   if(ctx.url.indexOf('/api/systemlog') !== 0){
-    const data = createModel(ctx);
+    let data = createModel(ctx);
+    const ipInfo = await GeoIp.getModelGeoInfo(data.request_ip);
+    data = R.merge(data, ipInfo);
     data.msg = msg || '';
     data.time = Date.now() - start;
     SystemLogService.insert(ctx, data, status);
