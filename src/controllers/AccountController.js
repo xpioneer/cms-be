@@ -19,6 +19,9 @@ class AccountController {
         const inputs = ctx.request.fields;
         let username = inputs.username;
         let password = inputs.password;
+        store.redis.on('message', (channel, message) => {
+            console.log('Receive message %s from channel %s', channel, message);
+        });
         if ((username && username.length > 0) && (password && password.length > 0)) {
             const result = await UserService.login(username, cryptoPwd(password, username));
             if (result > 0) {

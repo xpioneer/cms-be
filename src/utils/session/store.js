@@ -53,6 +53,13 @@ class RedisStore extends Store {
         let data = await this.redis.get(`${sid}`);
         return JSON.parse(data);
     }
+
+    async setLog(sl, { sid =  this.getID(32), maxAge } = {}) {
+        try {
+            await this.redis.set(`system_log:${sid}`, JSON.stringify(sl), 'PX', maxAge);
+        } catch (e) {}
+        return sid;
+    }
  
     async set(session, { sid =  this.getID(32), maxAge } = {}) {
         try {

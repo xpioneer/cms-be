@@ -1,6 +1,8 @@
 /*qinfeng*/
-
+import Store from '../utils/session/store'
 import SystemLogDao from '../daos/SystemLogDao'
+
+const store = new Store();
 
 class SystemLogService {
 
@@ -18,6 +20,7 @@ class SystemLogService {
         model.created_by = ctx.session && ctx.session['CUR_USER'] ? ctx.session['CUR_USER'].id : null;
         model.status = status || ctx.status;
         const result = await SystemLogDao.insert(model);
+        await store.setLog(result.dataValues, {maxAge: 1000*60*10});
         return result;
     }
 
