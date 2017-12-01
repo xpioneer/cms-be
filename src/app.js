@@ -52,7 +52,7 @@ App.on('error', (err, ctx) =>
 
 let port = 9901;
 if (process.env.NODE_ENV === "production") {
-    port = 9900;
+    port = 9100;
 }
 
 Http.createServer(App.callback()).listen(port);
