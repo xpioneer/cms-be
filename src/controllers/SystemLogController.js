@@ -117,6 +117,7 @@ class SystemLogController {
             list.forEach(async(v, i) => {
                 const ipInfo = await GeoIp.getModelGeoInfo(v.request_ip);
                 const model = R.merge(R.concat, v.dataValues, ipInfo);
+                console.log(model)
                 model['updated_at'] = Date.now();
                 model['updated_by'] = ctx.session['CUR_USER'].id;
                 await SystemLogService.updateModel(model);

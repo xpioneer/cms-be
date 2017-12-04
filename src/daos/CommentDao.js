@@ -49,10 +49,10 @@ class CommentDao {
                 required: false,
             }]
         });
-        if(list.length > 0){
-            return list[0];
-        }
-        return {};
+        // if(list.length > 0){
+        //     return list[0];
+        // }
+        return model;
     }
 
     static async pages(conditions, query) {
