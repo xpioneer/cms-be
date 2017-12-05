@@ -13,7 +13,7 @@ const getClientType = u => {
     } else if(u.match(/Firefox/)){
         return {type: 'Firefox', version: u.match(/Firefox\/([\d.]+)/)[0]};
     } else if(u.match(/Safari/)){
-        return {type: 'Safari', version:u.match(/Safari\/([\d.]+)/)[0]};
+        return {type: 'Safari', version: u.match(/Safari\//)[0] + u.match(/Version\/([\d.]+)/)[1]};
     } else {
         return {type: u, version: null};
     }
