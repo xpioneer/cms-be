@@ -66,6 +66,11 @@ const SystemLog = db.defineModel('system_log', {
       type: Sequelize.STRING(1000),
       allowNull: true
     },
+    source: {
+      type: Sequelize.STRING(20),
+      defaultValue: 'cms',
+      allowNull: true
+    },
     continent_code: {
       type: Sequelize.STRING(20),
       allowNull: true
