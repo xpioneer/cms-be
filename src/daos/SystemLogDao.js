@@ -29,7 +29,7 @@ class SystemLogDao {
             order: [['created_at', 'desc']]
         }), {
             attributes: ['id', 'request_ip', 'request_url', 'request_method', 'request_params',
-                'client_version', 'status', 'time', 'msg', 'continent_name_zh', 'country_name_zh',
+                'client_version', 'status', 'time', 'msg', 'source', 'continent_name_zh', 'country_name_zh',
                 'subdivisions_name_zh', 'city_name_zh', 'created_at', 'created_by'],
             include: [{
                 model: User,

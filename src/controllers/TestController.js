@@ -1,3 +1,4 @@
+import GeoIp from '../utils/tools/geoip';
 import TOOLS from '../utils/tools'
 
 const { DELAY } = TOOLS;
@@ -123,16 +124,24 @@ class TestController {
 
     static async testStatus(ctx) {
         const status = ctx.params.status || 400;
-        if(!isNaN(status) && parseInt(status) >= 100 && parseInt(status) <= 600){
-            console.log('status:', status)
-            if(status >= 200 && status < 300){
+        if(status && (status + '').match(/^[1-6]\d{2}$/)) {
+            if(status >= 200 && status < 300) {
                 ctx.Json({ data: '这里是你需要的数据。', msg: '请求成功', status: status*1 });
-            }else{
+            }else {
                 ctx.throw(status*1);
             }
-        }else{
-            console.log(status, 'status')
+        }else {
             ctx.throw(400, '请输入正确的状态码');
+        }
+    }
+
+    static async getIPGeo(ctx) {
+        const ip = ctx.params.ip;
+        if(ip.match(/^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)\.((25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)\.){2}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)$/)){
+            const ipInfo = await GeoIp.getModelGeoInfo(ip, true);
+            ctx.Json({ data: ipInfo, msg: '处理成功' });
+        }else {
+            ctx.throw(400, '请输入正确格式的ip');
         }
     }
 }

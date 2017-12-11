@@ -123,7 +123,7 @@ class SystemLogController {
                 await SystemLogService.updateModel(model);
                 counter++;
             });
-            ctx.Json({ data: list, msg: '更新成功!' });
+            ctx.Json({ data: counter, msg: '更新成功!' });
         }else{
             ctx.Json({ data: 0, msg: '更新成功!' });
         }

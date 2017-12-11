@@ -7,6 +7,7 @@ const router = new Router({
 
 router
 	.post('/status/:status', Test.testStatus)
+  .post('/ip/:ip', Test.getIPGeo)
 	.get('/home', Test.index)
 	.get('/testmock', Test.testmock)
 	.get('/page', Test.pages)
