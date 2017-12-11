@@ -19,11 +19,11 @@ export default async(ctx, next) => {
                 ctx.body = {status: 404, data: null, msg: '未找到资源'};
             }
             else {
-                let msg = err.data ? err.data.toString() : err.toString();
+                let msg = err.message ? err.message.toString() : err.toString();
                 ctx.body = {status: status, data: null, msg: msg};
             }
         }catch(e) {
-            let msg = e.data ? e.data.toString() : e.toString();
+            let msg = e.message ? e.message.toString() : e.toString();
             ctx.body = {status: 500, data: null, msg: msg};
         }
     }
