@@ -19,9 +19,6 @@ class AccountController {
         const inputs = ctx.request.fields;
         let username = inputs.username;
         let password = inputs.password;
-        store.redis.on('message', (channel, message) => {
-            console.log('Receive message %s from channel %s', channel, message);
-        });
         if ((username && username.length > 0) && (password && password.length > 0)) {
             const result = await UserService.login(username, cryptoPwd(password, username));
             if (result > 0) {
@@ -40,6 +37,7 @@ class AccountController {
 
     //POST
     static async logout(ctx) {
+        await store.destroy(ctx.session['CUR_USER'].id);
         delete ctx.session['CUR_USER'];
         delete ctx.session['AUTH_TOKEN'];
         ctx.Json({ data: 1, msg: '退出成功！' });

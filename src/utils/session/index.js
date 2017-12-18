@@ -9,6 +9,7 @@ const Session = (opts = {}) => {
             ctx.session = await opts.store.get(id);
             if (typeof ctx.session !== "object" || ctx.session == null) {
                 ctx.session = {};
+                id = undefined; // clear old id
             }
         } else {
             ctx.session = {};
