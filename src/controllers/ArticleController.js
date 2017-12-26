@@ -1,4 +1,4 @@
-/*qinfeng*/
+/*xpioneer*/
 
 import TOOLS from '../utils/tools';
 import ArticleService from '../services/ArticleService';

@@ -1,4 +1,4 @@
-/*qinfeng*/
+/*xpioneer*/
 import Fs from 'fs';
 import Path from 'path';
 import TOOLS from '../utils/tools';

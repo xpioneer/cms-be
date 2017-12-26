@@ -1,4 +1,4 @@
-/*qinfeng*/
+/*xpioneer*/
 import Store from '../utils/session/store'
 import SystemLogDao from '../daos/SystemLogDao'
 

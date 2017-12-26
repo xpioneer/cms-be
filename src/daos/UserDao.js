@@ -1,4 +1,4 @@
-/*qinfeng*/
+/*xpioneer*/
 import Crypto from 'crypto';
 import R from 'ramda';
 import DB from '../models'

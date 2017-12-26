@@ -1,4 +1,4 @@
-/*qinfeng*/
+/*xpioneer*/
 
 import ArticleTypeDao from '../daos/ArticleTypeDao'
 

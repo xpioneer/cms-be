@@ -1,4 +1,4 @@
-/*qinfeng*/
+/*xpioneer*/
 
 import mysql from 'mysql';
 import config from './db.config';

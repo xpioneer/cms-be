@@ -1,4 +1,4 @@
-/*qinfeng*/
+/*xpioneer*/
 import Crypto from 'crypto';
 import TOOLS from '../utils/tools';
 import UserService from '../services/UserService';

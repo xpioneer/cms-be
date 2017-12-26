@@ -1,4 +1,4 @@
-/*qinfeng*/
+/*xpioneer*/
 import R from 'ramda';
 import TOOLS from '../utils/tools';
 import GeoIp from '../utils/tools/geoip';

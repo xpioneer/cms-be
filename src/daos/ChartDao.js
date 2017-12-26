@@ -1,4 +1,4 @@
-/*qinfeng*/
+/*xpioneer*/
 import R from 'ramda';
 import DB from '../models'
 
