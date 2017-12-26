@@ -1,36 +1,36 @@
-import Sequelize from 'sequelize'
-import db from "./db"
+import Sequelize from 'sequelize';
+import db from "./db";
 
 const User = db.defineModel('user', {
-    username: {
-      type: Sequelize.STRING(50),
-      allowNull: false,
-    },
-    password: {
-      type: Sequelize.STRING(100),
-      allowNull: false,
-    },
-    nick_name: {
-      type: Sequelize.STRING(50),
-      allowNull: false,
-    },
-    sex: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    user_type: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    user_resource: {
-      type: Sequelize.STRING(100),
-      allowNull: true,
-    },
-    remark: {
-      type: Sequelize.STRING(200),
-      allowNull: true,
-    }
+  username: {
+    type: Sequelize.STRING(50),
+    allowNull: false,
   },
+  password: {
+    type: Sequelize.STRING(100),
+    allowNull: false,
+  },
+  nick_name: {
+    type: Sequelize.STRING(50),
+    allowNull: false,
+  },
+  sex: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  user_type: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  user_resource: {
+    type: Sequelize.STRING(100),
+    allowNull: true,
+  },
+  remark: {
+    type: Sequelize.STRING(200),
+    allowNull: true,
+  }
+},
 );
 
-export default User
+export default User;

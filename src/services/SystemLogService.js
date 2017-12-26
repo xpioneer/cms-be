@@ -1,50 +1,50 @@
 /*xpioneer*/
-import Store from '../utils/session/store'
-import SystemLogDao from '../daos/SystemLogDao'
+import Store from '../utils/session/store';
+import SystemLogDao from '../daos/SystemLogDao';
 
 const store = new Store();
 
 class SystemLogService {
 
-    static async getById (id) {
-        const model = await SystemLogDao.getById(id);
-        return model;
-    }
+  static async getById(id) {
+    const model = await SystemLogDao.getById(id);
+    return model;
+  }
 
-    static async pages (conditions) {
-        const pages = await SystemLogDao.pages(conditions);
-        return pages;
-    }
+  static async pages(conditions) {
+    const pages = await SystemLogDao.pages(conditions);
+    return pages;
+  }
 
-    static async insert (ctx, model, status) {
-        model.created_by = ctx.session && ctx.session['CUR_USER'] ? ctx.session['CUR_USER'].id : null;
-        model.status = status || ctx.status;
-        const result = await SystemLogDao.insert(model);
-        await store.setLog(result.dataValues, {maxAge: 1000*60*10});
-        return result;
-    }
+  static async insert(ctx, model, status) {
+    model.created_by = ctx.session && ctx.session['CUR_USER'] ? ctx.session['CUR_USER'].id : null;
+    model.status = status || ctx.status;
+    const result = await SystemLogDao.insert(model);
+    await store.setLog(result.dataValues, {maxAge: 1000*60*10});
+    return result;
+  }
 
-    static async update (inputs) {
-        const result = await SystemLogDao.update(inputs);
-        return result;
-    }
+  static async update(inputs) {
+    const result = await SystemLogDao.update(inputs);
+    return result;
+  }
 
-    //更新状态删除
-    static async delete (id, ctx) {
-        let CUR_USER = ctx.session['CUR_USER'];
-        const result = await SystemLogDao.delete(id, CUR_USER);
-        return result;
-    }
+  //更新状态删除
+  static async delete(id, ctx) {
+    let CUR_USER = ctx.session['CUR_USER'];
+    const result = await SystemLogDao.delete(id, CUR_USER);
+    return result;
+  }
 
-    static async updateModel(model) {
-        const result = await SystemLogDao.update(model);
-        return result;
-    }
+  static async updateModel(model) {
+    const result = await SystemLogDao.update(model);
+    return result;
+  }
 
-    static async findAllEN() {
-        const result = await SystemLogDao.findAllEN();
-        return result;
-    }
+  static async findAllEN() {
+    const result = await SystemLogDao.findAllEN();
+    return result;
+  }
 
 }
 

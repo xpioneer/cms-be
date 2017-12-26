@@ -44,46 +44,46 @@
 
 // export default promise;
 
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
 
-import httpConfig from '../../conf/httpConfig'
+import httpConfig from '../../conf/httpConfig';
 
 const commonReturn = (url, options) => {
-	return new Promise((resolve,reject) => {
-		try{
-			(async () => {
-				console.log(options)
-				const res = await fetch(url, options);
-				// console.log(res)
-				const json = await res.json();
-				resolve(json);
-				console.log(json);
-				// if(json.status == 200){
-				// 	resolve(json);
-				// }else{
-				// 	reject(json);
-				// }
+  return new Promise((resolve,reject) => {
+    try {
+      (async () => {
+        console.log(options);
+        const res = await fetch(url, options);
+        // console.log(res)
+        const json = await res.json();
+        resolve(json);
+        console.log(json);
+        // if(json.status == 200){
+        // 	resolve(json);
+        // }else{
+        // 	reject(json);
+        // }
 				
-			})();
-		}catch(e){
-			reject(e);
-		}
-	});
-}
+      })();
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
 const $http = {
-	get(url, options) {
-		return commonReturn(url, options);
-	},
-	post(url, options) {
-		return commonReturn(url, options);
-	},
-	put(url, options) {
-		return commonReturn(url, options);
-	},
-	delete(url, options) {
-		return commonReturn(url, options);
-	}
+  get(url, options) {
+    return commonReturn(url, options);
+  },
+  post(url, options) {
+    return commonReturn(url, options);
+  },
+  put(url, options) {
+    return commonReturn(url, options);
+  },
+  delete(url, options) {
+    return commonReturn(url, options);
+  }
 };
 
 export default $http;

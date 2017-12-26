@@ -1,10 +1,10 @@
 import R from 'ramda';
 import GeoIp from '../utils/tools/geoip';
 import SystemLogService from '../services/SystemLogService';
-import getClientType from '../utils/tools/clienttype'
+import getClientType from '../utils/tools/clienttype';
 
-const Logger = async(ctx, start, status, msg) => {
-  if(ctx.url.indexOf('/api/systemlog') !== 0){
+const Logger = async (ctx, start, status, msg) => {
+  if (ctx.url.indexOf('/api/systemlog') !== 0) {
     let data = createModel(ctx);
     const ipInfo = await GeoIp.getModelGeoInfo(data.request_ip);
     data = R.merge(data, ipInfo);
@@ -12,9 +12,9 @@ const Logger = async(ctx, start, status, msg) => {
     data.time = Date.now() - start;
     SystemLogService.insert(ctx, data, status);
   }
-}
+};
 
-function createModel(ctx){
+function createModel(ctx) {
   let method = ctx.method;
   let userAgent = ctx.header['user-agent'];
   let ClientType = getClientType(userAgent);
@@ -33,24 +33,24 @@ function createModel(ctx){
     origin: ctx.origin,
     protocol: ctx.protocol,
   };
-  switch(method) {
-    case 'GET':
-      data.request_params = ctx.querystring;
-      break;
-    case 'POST':
-    case 'PUT':
-      let params = JSON.stringify(ctx.request.fields);
-      if(ctx.url.match(/^\/api\/login/) && method.match(/^POST$/)){
-        params = params.replace(/"password":".+\b"/, '******');
-      }
-      if(ctx.url.match(/^\/api\/article(\/[\w]+|$)/) && method.match(/^PUT$|^POST$/)){
-        params = (method.match(/^POST$/) ? '添加' : '更新') + '了一篇文章';
-      }
-      data.request_params = params;
-      break;
-    default:
-      data.request_params = ctx.search;
-      break;
+  switch (method) {
+  case 'GET':
+    data.request_params = ctx.querystring;
+    break;
+  case 'POST':
+  case 'PUT':
+    let params = JSON.stringify(ctx.request.fields);
+    if (ctx.url.match(/^\/api\/login/) && method.match(/^POST$/)) {
+      params = params.replace(/"password":".+\b"/, '******');
+    }
+    if (ctx.url.match(/^\/api\/article(\/[\w]+|$)/) && method.match(/^PUT$|^POST$/)) {
+      params = (method.match(/^POST$/) ? '添加' : '更新') + '了一篇文章';
+    }
+    data.request_params = params;
+    break;
+  default:
+    data.request_params = ctx.search;
+    break;
   }
   return data;
 }
