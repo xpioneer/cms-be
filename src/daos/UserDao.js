@@ -40,7 +40,6 @@ class UserDao {
       password: model.password,
       nick_name: model.nick_name,
       sex: model.sex,
-      user_type: model.user_type,
       remark: model.remark,
       updated_at: Date.now()
     };

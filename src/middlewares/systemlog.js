@@ -30,8 +30,7 @@ function createModel(ctx) {
     path: ctx.path,
     request_header: JSON.stringify(ctx.header),
     protocol: ctx.protocol,
-    origin: ctx.origin,
-    protocol: ctx.protocol,
+    origin: ctx.origin
   };
   switch (method) {
   case 'GET':

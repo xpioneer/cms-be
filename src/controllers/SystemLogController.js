@@ -32,7 +32,6 @@ class SystemLogController {
         request_header: systemlog.request_header,
         protocol: systemlog.protocol,
         origin: systemlog.origin,
-        protocol: systemlog.protocol,
         time: systemlog.time,
         msg: systemlog.msg,
         created_at: DateTimeF(systemlog.created_at),

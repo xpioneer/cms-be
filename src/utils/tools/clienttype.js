@@ -1,7 +1,7 @@
 
 const getClientType = u => {
   if (u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
-    return {type:'iOS', version: u.match(/iP[^;]+; CPU[^\d]+[\d+(_|\.)]+/)[0]};
+    return {type:'iOS', version: u.match(/iP[^;]+; CPU[^\d]+[\d+(_|.)]+/)[0]};
   } else if (u.match(/Android/)) {
     return {type: 'Android', version: u.match(/Android ([\d.]+)/)[0]};
   } else if (u.match(/Trident/)) {
