@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 
 import TOOLS from '../utils/tools';
-import { DBConfig } from '../config/DBConfig';
+import { DBConfig, DBBallConfig } from '../config/DBConfig';
 
 const { Guid } = TOOLS;
 
@@ -99,8 +99,25 @@ function defineModel(name, attributes) {
   });
 }
 
+let dbBalls = new Sequelize(DBBallConfig.database, DBBallConfig.username, DBBallConfig.password, {
+  host: DBBallConfig.host,
+  dialect: DBBallConfig.dialect,
+  port: DBBallConfig.port,
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
+  },
+  dialectOptions: {
+    charset: 'utf8',
+  },
+  timezone: '+08:00'
+});
+
+
 export default {
   sequelize,
+  dbBalls,
   defineModel,
   sync() {
     if (process.env.NODE_ENV !== 'production') {

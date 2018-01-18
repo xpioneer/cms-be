@@ -10,6 +10,8 @@ import Usertl from '../controllers/UserController';
 import SystemLogCtl from '../controllers/SystemLogController';
 import ChartCtl from '../controllers/ChartController';
 
+import DoubleBallCtl from '../controllers/DoubleBallController';
+
 // test
 import Test from '../controllers/TestController';
 
@@ -71,6 +73,11 @@ router
   .get('/chart/systemlogdate', ChartCtl.getSystemLogDate)
   .get('/chart/articletype', ChartCtl.getArticleType)
   .get('/chart/articletag', ChartCtl.getArticleTag)
+
+// double balls
+  .get('/doubleball', DoubleBallCtl.pages)
+  .get('/doubleball/:id', DoubleBallCtl.getById)
+  .post('/doubleball', DoubleBallCtl.insert)
 
 // test
   .post('/test/status/:status', Test.testStatus)

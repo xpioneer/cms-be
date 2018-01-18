@@ -19,5 +19,6 @@ for (let f of js_files) {
 
 Obj["sync"] = () => { db.sync(); };
 Obj["sequelize"] = db.sequelize;
+Obj["dbBalls"] = db.dbBalls;
 
 module.exports = Obj;
