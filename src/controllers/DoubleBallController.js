@@ -67,7 +67,11 @@ class DoubleBallController {
 
   //POST
   static async insert(ctx) {
-    const result = await DoubleBallService.insert(createAward());
+    const result = await DoubleBallService.insert({
+      ...createAward(),
+      created_by: ctx.session['CUR_USER'].id,
+      updated_by: ctx.session['CUR_USER'].id,
+    });
     console.log(result);
     ctx.Json({ data: result.id, msg: '添加成功！' });
   }
@@ -80,6 +84,29 @@ class DoubleBallController {
     if (id) {
       const result = await DoubleBallService.delete(id, ctx);
       ctx.Json({ data: result[0], msg: '删除成功!' });
+    } else {
+      ctx.throw(400);
+    }
+  }
+
+  // random
+  static async random(ctx) {
+    const award = ctx.query.award;
+    console.log(ctx.query)
+    if (award) {
+      let randomBall = createAward();
+      let timer = Date.now();
+      console.log(new Date())
+      while(award != randomBall.gen_result) {
+        const result = await DoubleBallService.insert({
+          ...randomBall,
+          created_by: ctx.session['CUR_USER'].id,
+          updated_by: ctx.session['CUR_USER'].id
+        });
+        randomBall = createAward();
+      }
+      timer = Date.now() - timer;
+      ctx.Json({ data: timer, msg: '添加成功！' });
     } else {
       ctx.throw(400);
     }

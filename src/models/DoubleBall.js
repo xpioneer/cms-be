@@ -34,11 +34,11 @@ const DoubleBall = db.dbBalls.define('awards', {
       type: Sequelize.BIGINT,
       allowNull: true
     },
-    created_by: {
+    updated_by: {
       type: Sequelize.STRING(32),
       allowNull: true
     },
-    created_by: {
+    updated_at: {
       type: Sequelize.BIGINT,
       allowNull: true
     },

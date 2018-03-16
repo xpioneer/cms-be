@@ -78,6 +78,7 @@ router
   .get('/doubleball', DoubleBallCtl.pages)
   .get('/doubleball/:id', DoubleBallCtl.getById)
   .post('/doubleball', DoubleBallCtl.insert)
+  .get('/doubleball-random', DoubleBallCtl.random)
 
 // test
   .post('/test/status/:status', Test.testStatus)
