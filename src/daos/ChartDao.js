@@ -90,6 +90,25 @@ class ChartDao {
     return [];
   }
 
+  // 统计全国日志数量
+  static async getSystemLogChina(source) {
+    const sql = `
+      SELECT COUNT(subdivisions_name_zh) num, subdivisions_name_zh, subdivisions_name_en
+      FROM system_log
+      WHERE 1 = 1
+      ${source ? 'AND source = \'' + source + '\'' : ''}
+      AND country_name_en = 'China'
+      GROUP BY subdivisions_name_zh,subdivisions_name_en
+      ORDER BY num DESC;`
+    const list = await DB.sequelize.query(sql, {
+        type: 'SELECT'
+      });
+    if (list.length > 0) {
+      return list;
+    }
+    return [];
+  }
+
 }
 
 export default ChartDao;

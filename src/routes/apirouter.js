@@ -73,6 +73,7 @@ router
   .get('/chart/systemlogdate', ChartCtl.getSystemLogDate)
   .get('/chart/articletype', ChartCtl.getArticleType)
   .get('/chart/articletag', ChartCtl.getArticleTag)
+  .get('/chart/syslogchina', ChartCtl.getSystemLogChina)
 
 // double balls
   .get('/doubleball', DoubleBallCtl.pages)

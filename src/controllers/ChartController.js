@@ -32,6 +32,13 @@ class ChartController {
     ctx.Json({ data: model });
   }
 
+  // 获取全国的访问量
+  static async getSystemLogChina(ctx) {
+    const source = ctx.query['source'];
+    const data = await ChartService.getSystemLogChina(source);
+    return ctx.Json({ data });
+  }
+
 }
 
 export default ChartController;

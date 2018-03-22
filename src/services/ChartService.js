@@ -18,6 +18,10 @@ class ChartService {
   static async getArticleTag() {
     return await ChartDao.getArticleTag();
   }
+
+  static async getSystemLogChina(source) {
+    return await ChartDao.getSystemLogChina(source);
+  }
 }
 
 export default ChartService;
