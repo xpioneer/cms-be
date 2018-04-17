@@ -1,8 +1,8 @@
 {
-  "name": "MockServer",
+  "name": "CMS-BE",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "qinfeng",
+  "author": "xpioneer",
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=development node ./conf/run.js",
