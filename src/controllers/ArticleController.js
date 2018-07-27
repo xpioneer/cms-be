@@ -43,11 +43,11 @@ class ArticleController {
       type_id: inputs.type_id,
       is_top: inputs.is_top,
       content: inputs.content,
+      pics: inputs.pics,
       tag: inputs.tag,
       created_by: ctx.session['CUR_USER'].id
     };
     const result = await ArticleService.insert(model);
-    console.log(result);
     ctx.Json({ data: result.id, msg: '添加成功！' });
   }
 
