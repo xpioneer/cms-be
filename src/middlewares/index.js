@@ -8,7 +8,7 @@ import SystemLog from './systemlog';
 import Routes from './routes';
 
 const Middlewares = App => {
-  // App.use(Cors);
+  App.use(Cors);
   App.use(Request);
   App.use(Response);
   App.use(Authorize);

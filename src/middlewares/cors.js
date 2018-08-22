@@ -1,19 +1,20 @@
 import Cors from 'koa2-cors';
 
+const _PROD_ = process.env.NODE_ENV === 'production'
+
 export default Cors({
   origin: function (ctx) {
-    if (ctx.url === '/add') {
+    const origin = ctx.header.origin
+    // if (ctx.url === '/add') {
+    //   return false;
+    // }
+    if (_PROD_) {
       return false;
-    }
-    if (process.env.NODE_ENV == 'development') {
-      // return 'http://localhost:7001';//'*';
-      return '*';
     } else {
-      return false;
+      return origin;
     }
-    // return 'http://localhost:6001';
   },
   credentials: true,
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization-User', 'X-Requested-With', 'Accept', 'token']
+  allowHeaders: ['Content-Type', 'Authorization-User', 'X-Requested-With', 'Accept', 'Token']
 });
