@@ -1,7 +1,5 @@
 import Store from "./store.js";
 
-const _DEV_ = process.env.NODE_ENV === 'development'
-
 const Session = (opts = {}) => {
   const { key = "SESSION_ID", store = new Store() } = opts;
 
@@ -36,12 +34,8 @@ const Session = (opts = {}) => {
 
     // set/update session
     const sid = await store.set(ctx.session, Object.assign({}, opts, { sid: id }));
-    let _opts = opts
-    if(_DEV_) {
-      const origin = ctx.header.origin
-      _opts = Object.assign({}, opts, { domain: origin })
-    }
-    ctx.cookies.set(key, sid, _opts);
+    // need to optimize
+    ctx.cookies.set(key, sid, opts);
 
   };
 };

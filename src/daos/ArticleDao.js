@@ -16,7 +16,7 @@ class ArticleDao {
   static async pages(conditions) {
     const params = R.mergeWith(R.concat, R.mergeDeepWith(R.concat, conditions, {
       where: {
-        deleted_at: {$eq:null}
+        // deleted_at: {$eq:null}
       },
       order: [['created_at', 'desc']]
     }), {

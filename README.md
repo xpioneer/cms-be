@@ -1,7 +1,7 @@
-Koa2 for CMS
+# Koa2 for CMS
 
-####简介
-使用koa2框架开发，redis作为session存储，使用import导入文件，兼容未来趋势，线上使用pm2常驻服务启动。
+#### 简介
+使用koa2框架开发，redis作为session存储，使用import导入文件，兼容未来开发趋势，线上使用pm2常驻服务启动。
 
 ### 项目主要技术架构
 ***
