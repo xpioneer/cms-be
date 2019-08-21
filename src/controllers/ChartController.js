@@ -35,7 +35,11 @@ class ChartController {
   // 获取全国的访问量
   static async getSystemLogChina(ctx) {
     const source = ctx.query['source'];
-    const data = await ChartService.getSystemLogChina(source);
+    let data = await ChartService.getSystemLogChina(source);
+    data = data.map((item, index) => {
+      item.subdivisions_name_zh = item.subdivisions_name_zh.replace('市', '').replace('省', '').replace('自治区', '')
+      return item
+    })
     return ctx.Json({ data });
   }
 
