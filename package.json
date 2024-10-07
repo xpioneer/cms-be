@@ -6,12 +6,16 @@
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=development node ./conf/run.js",
+    "dev:ts": "NODE_ENV=development nodemon",
     "dev": "NODE_ENV=development ./node_modules/.bin/nodemon -i public/ ./conf/run.js",
     "prod": "NODE_ENV=production node ./conf/run.js",
     "lint": "node_modules/.bin/eslint src --ext .js",
     "lintfix": "node_modules/.bin/eslint --fix src --ext .js"
   },
   "dependencies": {
+    "@nestjs/common": "^10.4.4",
+    "@nestjs/core": "^10.4.4",
+    "@nestjs/platform-express": "^10.4.4",
     "dayjs": "^1.11.13",
     "ioredis": "^3.2.1",
     "koa": "^2.3.0",
@@ -26,13 +30,17 @@
     "sequelize": "^4.8.3"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.1.2",
+    "@babel/core": "^7.25.7",
+    "@babel/eslint-parser": "^7.25.7",
+    "@babel/eslint-plugin": "^7.25.7",
+    "@babel/preset-env": "^7.25.7",
+    "@types/node": "^22.7.4",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^4.14.0",
-    "eslint-plugin-babel": "^4.1.2",
+    "eslint": "^9.12.0",
     "koa-qs": "^2.0.0",
-    "nodemon": "^1.12.0"
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.2"
   }
 }

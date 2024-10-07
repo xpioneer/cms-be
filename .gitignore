@@ -4,7 +4,7 @@ node_modules
 .DS_Store
 
 
-src/config
+#src/config
 uploads
 
 start.json
