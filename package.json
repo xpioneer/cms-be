@@ -1,5 +1,5 @@
 {
-  "name": "CMS-BE",
+  "name": "cms-be-nest",
   "version": "1.0.0",
   "main": "index.js",
   "author": "xpioneer",
@@ -12,7 +12,7 @@
     "lintfix": "node_modules/.bin/eslint --fix src --ext .js"
   },
   "dependencies": {
-    "geoip2": "^1.0.5",
+    "dayjs": "^1.11.13",
     "ioredis": "^3.2.1",
     "koa": "^2.3.0",
     "koa-better-body": "^3.0.4",

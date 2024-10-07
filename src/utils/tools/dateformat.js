@@ -1,4 +1,4 @@
-import Moment from 'moment';
+import Moment from 'dayjs';
 
 const DateTimeF = d => {
   return d !== undefined && Moment(d).isValid() ? Moment(d).format('YYYY-MM-DD HH:mm:ss') : null;

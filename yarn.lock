@@ -1328,12 +1328,6 @@ generic-pool@^3.1.6:
   version "3.1.7"
   resolved "https://registry.yarnpkg.com/generic-pool/-/generic-pool-3.1.7.tgz#dac22b2c7a7a04e41732f7d8d2d25a303c88f662"
 
-geoip2@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/geoip2/-/geoip2-1.0.5.tgz#3bee6f33040a410ba6fde7e971b2a63008d71de2"
-  dependencies:
-    nan "2.3.5"
-
 get-stream@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"

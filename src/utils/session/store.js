@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto';
 import Redis from 'ioredis';
 import { Store } from 'koa-session2';
-import { RedisConfig } from '../../config/DBConfig';
+import { RedisConfig } from '../../../conf/DBConfig';
 import TOOLS from '../tools';
 
 // const { Guid } = TOOLS;
