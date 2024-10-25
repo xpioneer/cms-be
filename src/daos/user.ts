@@ -12,7 +12,7 @@ export class UserDao {
   }
 
   findAll() {
-    return this.usersRepository.find();
+    return this.usersRepository.findAndCount();
   }
 
   // findOne(id: string) {
