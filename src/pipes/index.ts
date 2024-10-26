@@ -1,0 +1,1 @@
+export { ResponsePipe } from './response'

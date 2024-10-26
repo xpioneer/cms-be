@@ -10,6 +10,7 @@ import { DBModules } from './database/modules';
 import { controllers } from './controllers'
 import { daos } from './daos'
 import { Entities } from './entities'
+import { interceptors } from './interceptors';
 
 
 @Module({
@@ -19,7 +20,8 @@ import { Entities } from './entities'
   ],
   controllers,
   providers: [
-    ...daos
+    ...daos,
+    ...interceptors,
   ],
 })
 export class AppModule {

@@ -50,6 +50,9 @@ dependencies:
   ramda:
     specifier: ^0.24.1
     version: 0.24.1
+  rxjs:
+    specifier: ^7.8.1
+    version: 7.8.1
   sequelize:
     specifier: ^4.8.3
     version: 4.44.4
@@ -3022,7 +3025,7 @@ packages:
     dependencies:
       extend-shallow: 3.0.2
       formidable: 1.2.6
-      koa-body-parsers: github.com/tunnckocore/body-parsers/7788b9cf82d84f90bbd543f8753affb82baf3a96
+      koa-body-parsers: git@github.com+tunnckocore/body-parsers/7788b9cf82d84f90bbd543f8753affb82baf3a96
     dev: false
 
   /koa-compose@3.2.1:
@@ -4398,8 +4401,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/tunnckocore/body-parsers/7788b9cf82d84f90bbd543f8753affb82baf3a96:
-    resolution: {tarball: https://codeload.github.com/tunnckocore/body-parsers/tar.gz/7788b9cf82d84f90bbd543f8753affb82baf3a96}
+  git@github.com+tunnckocore/body-parsers/7788b9cf82d84f90bbd543f8753affb82baf3a96:
+    resolution: {commit: 7788b9cf82d84f90bbd543f8753affb82baf3a96, repo: git@github.com:tunnckocore/body-parsers.git, type: git}
     name: koa-body-parsers
     version: 3.1.0
     dependencies:
