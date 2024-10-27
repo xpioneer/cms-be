@@ -6,6 +6,11 @@ import { UserDao } from '@/daos/user'
 export class UserController {
   constructor(private userDao: UserDao) {}
 
+  @Post('login')
+  login(@Body() {username, password}: UserLogin) {
+    this.userDao.login(username, password)
+  }
+
   @Get()
   findAll() {
     return this.userDao.findAll()
